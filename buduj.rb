@@ -257,6 +257,7 @@ def typografia_tekst(t)
   t = t.gsub(/(?<![[:alnum:]])([aiouwzAIOUWZ]) (?=\S)/) { "#{$1}&nbsp;" }
   t = t.gsub(/(\d) (zł|szt\.|sztuk|sztukach|mm|px|dni|dniach|kolory|miesięcy)/) { "#{$1}&nbsp;#{$2}" }
   t = t.gsub(/\b(ok\.|np\.|art\.|ust\.|lit\.|ul\.) (?=\S)/) { "#{$1}&nbsp;" }
+  t = t.gsub(/(\d)–(\d)/) { "#{$1}–&#8288;#{$2}" } # zakres liczb nie łamie się między wierszami
   t
 end
 

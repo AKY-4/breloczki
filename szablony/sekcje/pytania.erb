@@ -3,11 +3,11 @@
   <div class="kontener">
     <h2 id="pytania-h" class="tytul-sekcji"><span class="kropka kropka--mieta"></span>Najczęstsze pytania o breloki z logo i tabliczki NFC</h2>
     <div class="pytania">
-<% faq_opublikowane.each do |f| -%>
-      <article class="pytanie">
-        <h3><%= h f["pytanie"] %></h3>
+<% faq_opublikowane.each_with_index do |f, i| -%>
+      <details class="pytanie"<%= " open" if i == 0 %>>
+        <summary><h3><%= h f["pytanie"] %></h3><span class="pytanie__znak" aria-hidden="true"></span></summary>
         <p><%= h f["odpowiedz"] %></p>
-      </article>
+      </details>
 <% end -%>
     </div>
 <% if podglad? && !faq_czekajace.empty? -%>

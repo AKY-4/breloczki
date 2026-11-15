@@ -28,7 +28,7 @@ end
 
 def widoczny_tekst(html)
   t = html.gsub(%r{<(script|style|head)\b.*?</\1>}m, " ").gsub(/<[^>]+>/, " ")
-  t.gsub("&nbsp;", " ").gsub(" ", " ").gsub("&#39;", "'").gsub("&quot;", '"').gsub("&lt;", "<").gsub("&gt;", ">").gsub("&amp;", "&").gsub(/\s+/, " ")
+  t.gsub("&nbsp;", " ").gsub(" ", " ").gsub("&#8288;", "").gsub("&#39;", "'").gsub("&quot;", '"').gsub("&lt;", "<").gsub("&gt;", ">").gsub("&amp;", "&").gsub(/\s+/, " ")
 end
 
 html = czytaj("index.html")

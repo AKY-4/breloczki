@@ -267,3 +267,17 @@ ul,ol{margin:0;padding:0;list-style:none}
 @media (min-width:960px){
   .naglowek__cta{display:inline-flex}
 }
+
+/* zwijane pytania */
+.pytania{grid-template-columns:1fr;max-width:860px;gap:12px}
+.pytanie{padding:0}
+.pytanie summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:14px 20px;cursor:pointer;list-style:none;border-radius:var(--r-karta)}
+.pytanie summary::-webkit-details-marker{display:none}
+.pytanie summary h3{margin:0;font-size:calc(var(--baza)*1.15)}
+.pytanie summary:hover h3{color:var(--fiolet)}
+.pytanie>p{padding:0 20px 18px;margin:0;max-width:46em}
+.pytanie__znak{position:relative;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--lila)}
+.pytanie__znak::before,.pytanie__znak::after{content:"";position:absolute;left:7px;right:7px;top:13px;height:2px;border-radius:1px;background:var(--fiolet)}
+.pytanie__znak::after{transform:rotate(90deg)}
+.pytanie[open] .pytanie__znak::after{transform:rotate(0)}
+@media (min-width:700px){.pytania{grid-template-columns:1fr}}

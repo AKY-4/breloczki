@@ -13,7 +13,8 @@ Encoding.default_internal = Encoding::UTF_8
 
 KATALOG = File.expand_path(__dir__)
 TRYB = ARGV[0] == "produkcja" ? :produkcja : :podglad
-WYJSCIE = File.join(KATALOG, TRYB == :produkcja ? "publikacja" : "podglad")
+# Folder wynikowy można zmienić zmienną WYJSCIE (używa tego Netlify, patrz netlify.toml).
+WYJSCIE = File.join(KATALOG, ENV["WYJSCIE"].to_s =~ /\A[\w-]+\z/ ? ENV["WYJSCIE"] : (TRYB == :produkcja ? "publikacja" : "podglad"))
 ZNACZNIK_URL = "https://domena-do-uzupelnienia.example"
 ZNACZNIK = "do uzupełnienia"
 
@@ -76,7 +77,7 @@ class Kontekst
   end
 
   def render(nazwa)
-    ERB.new(wczytaj("szablony/#{nazwa}.erb"), nil, "-").result(binding)
+    ERB.new(wczytaj("szablony/#{nazwa}.erb"), trim_mode: "-").result(binding)
   end
 
   def ustaw_strone(s)

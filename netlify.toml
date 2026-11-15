@@ -1,0 +1,17 @@
+# Konfiguracja Netlify. Netlify sam generuje stronę przy każdej wysyłce na GitHuba.
+# Najpierw próbuje wersji do publikacji. Jeśli w dane.yml brakuje wymaganych danych,
+# buduje wersję podglądową (z żółtym paskiem i wyłączoną z indeksowania w Google).
+[build]
+  command = "WYJSCIE=_site ruby buduj.rb produkcja || WYJSCIE=_site ruby buduj.rb"
+  publish = "_site"
+
+# Pliki w assets/ mają skrót treści w nazwie, więc przeglądarka może je trzymać długo.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"

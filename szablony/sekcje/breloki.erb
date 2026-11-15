@@ -1,0 +1,40 @@
+<section id="breloki" class="sekcja" aria-labelledby="breloki-h">
+  <%= deko "paski", "#d9c9f5", "dk-lewa-paski" %>
+  <div class="kontener">
+    <h2 id="breloki-h" class="tytul-sekcji"><span class="kropka kropka--fiolet"></span>Breloki 3D z logo firmy na zamówienie</h2>
+    <div class="dwie-kolumny">
+      <div class="proza">
+        <p>Brelok z logo to drobny upominek dla klientów i pracowników. Trafia do kieszeni, wisi przy kluczach i codziennie przypomina o Twojej firmie. Każdy projektuję od zera i drukuję w 3D w kolorach Twojej marki.</p>
+        <h3>Jak powstają breloki z druku 3D</h3>
+        <p>To wielokolorowy druk 3D: każdy kolor jest osobną warstwą tworzywa. Logo jest wypukłe na przodzie, a tył jest płaski. To nie jest brelok z nadrukiem ani z naklejką, bo kolor powstaje razem z brelokiem.</p>
+        <p>Kształt jest dowolny. Brelok może być medalionem, prostokątem, podłużną zawieszką albo mieć obrys Twojego logo.</p>
+        <h3>Dla kogo są breloki firmowe z logo</h3>
+        <p>Małe serie od 20 sztuk sprawdzają się w lokalnych firmach. Projektuję breloki dla siłowni i klubów fitness, dla kawiarni i pizzerii, dla salonów kosmetycznych i barberów. To także drobne upominki firmowe dla klientów na otwarcie lokalu albo jubileusz.</p>
+        <p><a class="przycisk" href="#wycena" data-zrodlo="breloki">Zapytaj o wycenę breloków</a></p>
+      </div>
+      <div class="karta">
+        <h3 class="karta__tytul">Parametry breloków</h3>
+        <table class="parametry">
+          <tbody>
+            <tr><th scope="row">Kształt</th><td>dowolny: medalion, prostokąt, podłużny albo obrys logo</td></tr>
+            <tr><th scope="row">Rozmiar</th><td>medalion ok. 40 mm, podłużny do 50 mm, prostokąt ok. 45 × 42 mm, obrys logo do ok. 45 mm</td></tr>
+            <tr><th scope="row">Grubość</th><td>ok. 4 mm</td></tr>
+            <tr><th scope="row">Kolory</th><td>zwykle 2–3 kolory, dobrane do Twojego logo</td></tr>
+<% if oferta("material") -%>
+            <tr><th scope="row">Materiał</th><td><%= h oferta("material") %></td></tr>
+<% end -%>
+<% if oferta("kolko_w_zestawie") -%>
+            <tr><th scope="row">Kółko</th><td><%= h oferta("kolko_w_zestawie") %></td></tr>
+<% end -%>
+            <tr><th scope="row">Minimalne zamówienie</th><td>20 sztuk</td></tr>
+            <tr><th scope="row">Cena</th><td>od <%= cena_min %> zł za sztukę, projekt w cenie</td></tr>
+            <tr><th scope="row">Czas realizacji</th><td>ok. 7 dni roboczych od akceptacji projektu</td></tr>
+<% if oferta("dostawa") -%>
+            <tr><th scope="row">Dostawa</th><td><%= h oferta("dostawa") %></td></tr>
+<% end -%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

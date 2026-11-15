@@ -1,0 +1,35 @@
+<section class="sekcja podstrona" aria-labelledby="polityka-h">
+  <div class="kontener kontener--waski proza">
+    <h1 id="polityka-h">Polityka prywatności</h1>
+    <p>Ta strona wyjaśnia, jakie dane zbiera serwis 3D things, po co i jak długo są przechowywane. Wersja z dnia <%= h d["rodo"]["data_wersji"] %>.</p>
+
+    <h2>Administrator danych</h2>
+    <p>Administratorem danych osobowych jest <%= h administrator %>. Kontakt w sprawach danych: <a href="mailto:<%= h email %>"><%= h email %></a>, telefon <a href="<%= telefon_href %>"><%= h telefon %></a>.</p>
+
+    <h2>Jakie dane przetwarzam i po co</h2>
+    <table class="parametry">
+      <tbody>
+        <tr><th scope="row">Formularz zapytania</th><td>Adres e-mail, numer telefonu (jeśli go podasz) i treść wiadomości. Cel: odpowiedź na zapytanie i przygotowanie wyceny. Podstawa: art. 6 ust. 1 lit. b RODO, a gdy piszesz w imieniu firmy: art. 6 ust. 1 lit. f RODO (obsługa zapytań).</td></tr>
+        <tr><th scope="row">Kontakt e-mailowy i telefoniczny</th><td>Dane, które podasz w wiadomości lub rozmowie. Cel: prowadzenie korespondencji i realizacja zamówienia. Podstawa: art. 6 ust. 1 lit. b i f RODO.</td></tr>
+        <tr><th scope="row">Logi serwera</th><td>Adres IP, data i godzina wejścia, dane o przeglądarce. Cel: bezpieczeństwo i poprawne działanie strony. Podstawa: art. 6 ust. 1 lit. f RODO.</td></tr>
+      </tbody>
+    </table>
+    <p>Podanie danych jest dobrowolne, ale bez nich nie mogę odpowiedzieć na zapytanie. Danych nie wykorzystuję do wysyłki informacji handlowych niezwiązanych z Twoim zapytaniem.</p>
+
+    <h2>Jak długo przechowuję dane</h2>
+    <p>Dane z formularza i korespondencji przechowuję przez czas rozmowy i <%= h d["rodo"]["okres_przechowywania"] %> od ostatniego kontaktu. Jeśli dojdzie do zamówienia, dane przechowuję przez okres wymagany przepisami podatkowymi i do czasu przedawnienia roszczeń.</p>
+
+    <h2>Komu przekazuję dane</h2>
+    <p>Dane powierzam wyłącznie dostawcom usług potrzebnych do działania strony i korespondencji: <%= h d["rodo"]["odbiorcy"] %>.<% if formularz_usluga == "formspark" %> Formularz obsługuje usługa Formspark (Trampoline Software SRL, Belgia), która przechowuje zgłoszenia w Europejskim Obszarze Gospodarczym.<% end %></p>
+    <p><%= puste?(d["rodo"]["poza_eog"]) ? "Nie przekazuję danych poza Europejski Obszar Gospodarczy." : h(d["rodo"]["poza_eog"]) %></p>
+
+    <h2>Twoje prawa</h2>
+    <p>Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przenoszenia, a także prawo sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie. Aby z nich skorzystać, napisz na adres <a href="mailto:<%= h email %>"><%= h email %></a>. Możesz też wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+    <p>Nie podejmuję decyzji w sposób zautomatyzowany i nie profiluję.</p>
+
+    <h2>Pliki cookie</h2>
+    <p>Ta strona nie używa plików cookie ani podobnych technologii i niczego nie zapisuje na Twoim urządzeniu. Nie ładuje też zasobów z zewnętrznych serwerów.</p>
+
+    <p><a class="przycisk" href="/">Wróć na stronę główną</a></p>
+  </div>
+</section>

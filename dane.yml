@@ -1,0 +1,148 @@
+# DANE STRONY 3D things
+# Jedyny plik, w którym zmienia się treści i dane. Po każdej zmianie uruchom:
+#   ruby buduj.rb            (podgląd, folder podglad/)
+#   ruby buduj.rb produkcja  (wersja do publikacji, folder publikacja/)
+# Puste wartości "" oznaczają brak danej. Pola opisane jako WYMAGANE blokują wersję do publikacji.
+
+strona:
+  url: ""                      # WYMAGANE. Pełny adres z https, bez ukośnika na końcu, np. https://twojadomena.pl
+  nazwa: "3D things"
+  tytul: "Breloki 3D z logo firmy i tabliczki NFC | 3D things"
+  opis: "Wielokolorowe breloki 3D z logo Twojej firmy: od 20 szt., od 6 zł/szt., projekt w cenie, ok. 7 dni roboczych. Także tabliczki NFC do opinii Google."
+  google_site_verification: "" # opcjonalnie: kod z Google Search Console
+  data_zmiany: "2026-11-15"    # data ostatniej zmiany treści (RRRR-MM-DD)
+
+kontakt:                       # z ulotki, do potwierdzenia przez właściciela
+  telefon: "600 818 517"
+  email: "miki.klonowski@outlook.com"
+  instagram_nazwa: "@miki_klon"
+  instagram_url: "https://instagram.com/miki_klon"
+  miejscowosc: "Grodzisk Mazowiecki"
+
+wlasciciel:                    # z ulotki; właściciel potwierdza, że ma to być publiczne
+  imie: "Miki"
+  opis: "Studiuję i trenuję łyżwiarstwo szybkie, a 3D things to mój własny startup z Grodziska Mazowieckiego. Każdy brelok projektuję i drukuję sam, więc masz kontakt bezpośrednio ze mną, od pomysłu do odbioru."
+  zdjecie: ""                  # opcjonalnie: plik w zasoby/img/, np. miki.jpg
+
+sprzedawca:
+  forma_prawna: ""             # WYMAGANE: jdg | nierejestrowana | spzoo
+  nazwa: ""                    # jdg: nazwa firmy z imieniem i nazwiskiem; spzoo: firma spółki
+  imie_nazwisko: ""            # nierejestrowana: imię i nazwisko
+  adres: ""                    # WYMAGANE: ulica, kod, miejscowość
+  nip: ""                      # jdg, spzoo
+  krs: ""                      # spzoo
+  sad_rejestrowy: ""           # spzoo
+  kapital_zakladowy: ""        # spzoo
+
+ceny:
+  vat: ""                      # WYMAGANE: netto | brutto | zwolniony
+  waluta: "PLN"
+  progi:
+    - { od: 20, do: 49, cena: 9, etykieta: "20–49 szt." }
+    - { od: 50, do: 99, cena: 8, etykieta: "50–99 szt." }
+    - { od: 100, do: null, cena: 6, etykieta: "od 100 szt." }
+
+formularz:
+  usluga: "formspark"          # formspark | wlasny
+  adres: ""                    # WYMAGANE. Formspark: https://submit-form.com/IDENTYFIKATOR ; własny: adres obsługi formularza
+  telefon_wymagany: false      # true = pole Telefon staje się wymagane
+  czas_odpowiedzi: ""          # opcjonalnie, np. "Odpisuję zwykle tego samego dnia." (tylko jeśli to prawda)
+
+rodo:
+  okres_przechowywania: "12 miesięcy"   # propozycja, do potwierdzenia
+  odbiorcy: "dostawca formularza kontaktowego, dostawca hostingu, dostawca poczty e-mail"
+  poza_eog: ""                 # opcjonalnie: opis przekazania danych poza Europejski Obszar Gospodarczy
+  data_wersji: "2026-11-15"
+
+oferta:                        # dane do potwierdzenia; puste = zależna treść się nie pojawia
+  dostawa: ""                  # np. "Odbiór osobisty w Grodzisku Mazowieckim albo wysyłka kurierem."
+  material: ""                 # np. "PLA" (według plików druku: PLA)
+  kolko_w_zestawie: ""         # np. "Każdy brelok ma metalowe kółko do kluczy."
+  tabliczka_minimum: ""        # np. "od 1 sztuki"
+  tabliczka_cena_od: ""        # np. "od 99 zł"
+  tabliczka_czas: ""           # np. "ok. 7 dni roboczych od akceptacji projektu"
+  tabliczka_qr: false          # true = w ofercie jest wersja z kodem QR
+  tabliczka_bez_abonamentu: false   # true = potwierdzone, że nie ma abonamentu
+
+faq:
+  - pytanie: "Ile kosztują breloki z logo firmy?"
+    odpowiedz: "Przy zamówieniu 20–49 sztuk brelok kosztuje %{c1} zł za sztukę, przy 50–99 sztukach %{c2} zł, a od 100 sztuk %{c3} zł. Projekt breloka i poprawki są w cenie."
+    opublikowane: true
+  - pytanie: "Jaka jest minimalna liczba sztuk?"
+    odpowiedz: "Minimalne zamówienie to 20 sztuk breloków. Taka mała seria wystarczy, żeby sprawdzić pomysł, zanim zamówisz więcej."
+    opublikowane: true
+  - pytanie: "Ile trwa realizacja zamówienia?"
+    odpowiedz: "Ok. 7 dni roboczych od akceptacji projektu. Czas liczy się od chwili, w której zatwierdzisz podgląd."
+    opublikowane: true
+  - pytanie: "Czy projekt jest w cenie i czy zobaczę go przed drukiem?"
+    odpowiedz: "Tak. Projekt breloka jest w cenie, a przed drukiem dostajesz podgląd do akceptacji. Poprawki są bez dopłat."
+    opublikowane: true
+  - pytanie: "Nie mam logo w dobrej jakości. Co wtedy?"
+    odpowiedz: "Wystarczy nazwa firmy albo link do strony lub profilu w mediach społecznościowych. Logo mogę znaleźć sam i przygotować je do druku."
+    opublikowane: true
+  - pytanie: "Jaki kształt, rozmiar i ile kolorów może mieć brelok?"
+    odpowiedz: "Kształt jest dowolny: medalion ok. 40 mm, brelok podłużny do 50 mm, prostokąt ok. 45 × 42 mm albo własny obrys logo do ok. 45 mm. Brelok ma ok. 4 mm grubości i zwykle 2–3 kolory."
+    opublikowane: true
+  - pytanie: "Czym brelok z druku 3D różni się od breloka z nadrukiem?"
+    odpowiedz: "W breloku z druku 3D kolor jest warstwą tworzywa, a nie farbą na powierzchni. Logo jest wypukłe i powstaje razem z brelokiem, więc nie ma tu nadruku ani naklejki."
+    opublikowane: true
+  - pytanie: "Jak działa tabliczka NFC do opinii Google?"
+    odpowiedz: "Klient zbliża telefon do tabliczki, dotyka powiadomienia i trafia prosto do formularza opinii o Twojej firmie w Google. Nie musi szukać firmy w Mapach ani niczego instalować."
+    opublikowane: true
+  - pytanie: "Czy tabliczka działa na iPhonie i Androidzie bez aplikacji?"
+    odpowiedz: "Tak. Tabliczka działa bez aplikacji na iPhone'ach XS i nowszych oraz na telefonach z Androidem z włączonym NFC."
+    opublikowane: true
+  - pytanie: "Czy muszę mieć Profil Firmy w Google?"
+    odpowiedz: "Tak. Link do opinii pochodzi z Profilu Firmy w Google, więc profil musi istnieć, żeby tabliczka miała dokąd prowadzić."
+    opublikowane: true
+  - pytanie: "Czy zbieranie opinii tabliczką jest zgodne z zasadami Google?"
+    odpowiedz: "Tak, o ile zapraszasz do opinii wszystkich klientów i niczego nie oferujesz w zamian. Tabliczka tylko skraca drogę do formularza, a o ocenie decyduje klient."
+    opublikowane: true
+  - pytanie: "Czy gwarantujecie liczbę opinii albo ocenę 5 gwiazdek?"
+    odpowiedz: "Nie. O opinii i ocenie decyduje wyłącznie klient, więc niczego tu nie gwarantuję. Google zabrania nagradzania za opinie i proszenia o nie tylko zadowolonych klientów."
+    opublikowane: true
+  - pytanie: "Kto wykonuje zamówienie?"
+    odpowiedz: "Miki, właściciel 3D things z Grodziska Mazowieckiego. Każdy brelok i każdą tabliczkę projektuję i drukuję sam, więc masz kontakt bezpośrednio ze mną."
+    opublikowane: true
+  # Pytania czekające na dane od właściciela. Wpisz odpowiedź i ustaw opublikowane: true.
+  - { pytanie: "Czy wystawiasz fakturę?", odpowiedz: "", opublikowane: false, czeka_na: "forma prawna, VAT" }
+  - { pytanie: "Jak wygląda dostawa i czy możliwy jest odbiór osobisty?", odpowiedz: "", opublikowane: false, czeka_na: "zasady dostawy" }
+  - { pytanie: "Jak mogę zapłacić?", odpowiedz: "", opublikowane: false, czeka_na: "formy płatności" }
+  - { pytanie: "Z czego są zrobione breloki i czy są trwałe?", odpowiedz: "", opublikowane: false, czeka_na: "materiał i trwałość" }
+  - { pytanie: "Czy brelok ma kółko do kluczy?", odpowiedz: "", opublikowane: false, czeka_na: "kółko w zestawie" }
+  - { pytanie: "Czy mogę zamówić mniej niż 20 sztuk albo próbkę?", odpowiedz: "", opublikowane: false, czeka_na: "zasady próbek" }
+  - { pytanie: "Czy realizujesz duże nakłady?", odpowiedz: "", opublikowane: false, czeka_na: "maksymalny nakład" }
+  - { pytanie: "Co, jeśli telefon klienta nie ma NFC?", odpowiedz: "", opublikowane: false, czeka_na: "wersja z kodem QR w ofercie" }
+  - { pytanie: "Czy link w tabliczce można później zmienić?", odpowiedz: "", opublikowane: false, czeka_na: "zmiana linku NFC" }
+  - { pytanie: "Ile kosztuje tabliczka NFC i ile trwa realizacja?", odpowiedz: "", opublikowane: false, czeka_na: "cena i czas tabliczki" }
+
+# GALERIA. Pozycja trafia do wersji do publikacji dopiero po ustawieniu zgoda: true
+# (firma zgodziła się na pokazanie projektu z jej logo). Poniżej 4 pozycji ze zgodą sekcja się nie pojawia.
+# typ: wizualizacja (grafika projektu) albo zdjecie (prawdziwe zdjęcie; wypełnia kafel w całości).
+galeria:
+  - { plik: "brelok-dla-silowni", podpis: "Brelok dla siłowni", firma: "Best Gym", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 640, zgoda: false,
+      alt: "Brelok 3D w kształcie hantla z logo siłowni, żółto-czarny" }
+  - { plik: "brelok-dla-kawiarni", podpis: "Brelok dla kawiarni", firma: "Krówka i Kawka", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 640, zgoda: false,
+      alt: "Brelok 3D w kształcie krowy z logo kawiarni, brązowo-biały" }
+  - { plik: "brelok-dla-pizzerii", podpis: "Brelok dla pizzerii", firma: "Pizzagram", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 640, zgoda: false,
+      alt: "Okrągły brelok 3D z logo pizzerii w trzech kolorach: czarnym, białym i żółtym" }
+  - { plik: "brelok-dla-barbera", podpis: "Brelok dla barbera", firma: "Żyleta Barber", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 640, zgoda: false,
+      alt: "Brelok 3D w kształcie żyletki z logo barbera, biało-czarny" }
+  - { plik: "brelok-dla-salonu-kosmetycznego", podpis: "Brelok dla salonu kosmetycznego", firma: "Hello Beauty", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 252, zgoda: false,
+      alt: "Podłużny kremowy brelok 3D z logo salonu kosmetycznego" }
+  - { plik: "brelok-dla-firmy-motoryzacyjnej", podpis: "Brelok dla firmy motoryzacyjnej", firma: "WGM Motors", produkt: "brelok", typ: "wizualizacja", tlo: "#d9d9d9", w: 640, h: 185, zgoda: false,
+      alt: "Podłużny biały brelok 3D z logo firmy motoryzacyjnej i czerwoną ramką" }
+  - { plik: "tabliczka-nfc-dla-kawiarni", podpis: "Tabliczka NFC dla kawiarni", firma: "Krówka i Kawka", produkt: "tabliczka", typ: "wizualizacja", tlo: "#e6e4e1", w: 640, h: 640, zgoda: false,
+      alt: "Kremowa tabliczka NFC do opinii Google z logo kawiarni na brązowej podstawce" }
+  - { plik: "tabliczka-nfc-dla-pizzerii", podpis: "Tabliczka NFC dla pizzerii", firma: "Pizzagram", produkt: "tabliczka", typ: "wizualizacja", tlo: "#e6e4e1", w: 640, h: 640, zgoda: false,
+      alt: "Czarna tabliczka NFC do opinii Google z logo pizzerii na żółtej podstawce" }
+
+# LISTA STRON. Nową podstronę (np. o tabliczkach NFC) dodaje się tutaj i jako szablon w szablony/.
+strony:
+  - { szablon: "index", sciezka: "/", w_mapie: true, indeksowana: true }
+  - { szablon: "polityka", sciezka: "/polityka-prywatnosci/", w_mapie: false, indeksowana: true,
+      tytul: "Polityka prywatności | 3D things", opis: "Jak 3D things przetwarza dane z formularza kontaktowego: administrator, cele, okres przechowywania i prawa osób." }
+  - { szablon: "dziekujemy", sciezka: "/dziekujemy/", w_mapie: false, indeksowana: false,
+      tytul: "Dziękuję za zapytanie | 3D things", opis: "Zapytanie zostało wysłane." }
+  - { szablon: "404", sciezka: "/404.html", w_mapie: false, indeksowana: false,
+      tytul: "Nie ma takiej strony | 3D things", opis: "Strona, której szukasz, nie istnieje." }

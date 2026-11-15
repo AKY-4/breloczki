@@ -1,0 +1,21 @@
+<header class="naglowek">
+  <div class="kontener naglowek__w">
+    <a class="naglowek__logo" href="<%= glowna? ? "#start" : "/" %>">
+      <img src="<%= zasob("img/logo-3dthings.svg") %>" alt="3D things" width="944" height="264">
+    </a>
+    <button class="menu-przycisk" type="button" aria-expanded="false" aria-controls="nawigacja" data-menu>Menu</button>
+    <nav id="nawigacja" class="nawigacja" aria-label="Główna">
+      <ul>
+        <li><a href="<%= kotwica "breloki" %>">Breloki</a></li>
+        <li><a href="<%= kotwica "tabliczki-nfc" %>">Tabliczki NFC</a></li>
+<% unless galeria.empty? -%>
+        <li><a href="<%= kotwica "projekty" %>">Projekty</a></li>
+<% end -%>
+        <li><a href="<%= kotwica "cennik" %>">Cennik</a></li>
+        <li><a href="<%= kotwica "jak-zamowic" %>">Jak zamówić</a></li>
+        <li><a href="<%= kotwica "pytania" %>">Pytania</a></li>
+      </ul>
+    </nav>
+    <a class="przycisk przycisk--maly naglowek__cta" href="<%= kotwica "wycena" %>" data-zrodlo="naglowek">Zapytaj o wycenę</a>
+  </div>
+</header>

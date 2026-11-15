@@ -1,0 +1,28 @@
+<section id="start" class="sekcja start" aria-labelledby="start-h">
+  <%= deko "kolo", "#d9c9f5", "dk-start-kolo" %>
+  <%= deko "pierscien", "#7a45c2", "dk-start-pierscien" %>
+  <%= deko "gwiazdka", "#ffd23f", "dk-start-gwiazdka" %>
+  <%= deko "paski", "#ff8a3d", "dk-start-paski" %>
+  <%= deko "kropki", "#43d1a6", "dk-start-kropki" %>
+  <%= deko "kolo", "#ff6fa8", "dk-start-roz" %>
+  <%= deko "falka", "#7a45c2", "dk-start-falka" %>
+  <div class="kontener start__w">
+    <div class="start__tekst">
+      <h1 id="start-h">Breloki 3D z logo Twojej firmy, które klienci <span class="fiolet">noszą przy kluczach</span></h1>
+      <p class="lead">3D things to jednoosobowa pracownia druku 3D z Grodziska Mazowieckiego. Projektuję i drukuję wielokolorowe breloki z logo oraz tabliczki NFC dla małych firm, w kolorach Twojej marki.</p>
+      <ul class="chipy" aria-label="Najważniejsze warunki">
+        <li class="chip chip--fiolet">Projekt w cenie</li>
+        <li class="chip chip--pomarancz">Od 20 sztuk</li>
+        <li class="chip chip--mieta">Gotowe w ok. 7 dni roboczych</li>
+      </ul>
+      <div class="start__akcje">
+        <a class="przycisk" href="#wycena" data-zrodlo="start">Zapytaj o wycenę</a>
+        <a class="link-tel" href="<%= telefon_href %>" data-zdarzenie="telefon">albo zadzwoń: <strong><%= h telefon %></strong></a>
+      </div>
+    </div>
+    <div class="start__obraz">
+      <img class="start__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.svg") %>" width="540" height="740" alt="Czarna tabliczka NFC „Zostaw opinię” z logo 3D things na fioletowej podstawce">
+      <img class="start__brelok" src="<%= zasob("img/brelok-3d-z-logo.svg") %>" width="1420" height="1860" alt="Brelok 3D z logo 3D things: czarna zawieszka z fioletowo-białym znakiem i metalowym kółkiem na klucze" fetchpriority="high">
+    </div>
+  </div>
+</section>

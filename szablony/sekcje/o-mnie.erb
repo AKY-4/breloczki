@@ -1,0 +1,15 @@
+<section id="o-mnie" class="sekcja" aria-labelledby="o-mnie-h">
+  <div class="kontener">
+    <div class="o-mnie">
+<% if puste?(d["wlasciciel"]["zdjecie"]) -%>
+      <div class="o-mnie__znak" aria-hidden="true">👋</div>
+<% else -%>
+      <img class="o-mnie__zdjecie" src="<%= zasob("img/#{d["wlasciciel"]["zdjecie"]}") %>" width="160" height="160" loading="lazy" alt="<%= h d["wlasciciel"]["imie"] %>, właściciel 3D things">
+<% end -%>
+      <div>
+        <h2 id="o-mnie-h">Cześć, jestem <%= h d["wlasciciel"]["imie"] %> – projektuję i drukuję Twoje breloki</h2>
+        <p><%= h d["wlasciciel"]["opis"] %></p>
+      </div>
+    </div>
+  </div>
+</section>

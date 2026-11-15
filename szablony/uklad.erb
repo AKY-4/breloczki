@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pl" class="bez-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= h tytul %></title>
+<meta name="description" content="<%= h opis %>">
+<% if !indeksowana? -%>
+<meta name="robots" content="noindex">
+<% elsif glowna? -%>
+<meta name="robots" content="max-image-preview:large">
+<% end -%>
+<% if strona_biezaca["indeksowana"] -%>
+<link rel="canonical" href="<%= h bezwzgledny(strona_biezaca["sciezka"]) %>">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="<%= h d["strona"]["nazwa"] %>">
+<meta property="og:title" content="<%= h tytul %>">
+<meta property="og:description" content="<%= h opis %>">
+<meta property="og:url" content="<%= h bezwzgledny(strona_biezaca["sciezka"]) %>">
+<meta property="og:image" content="<%= h bezwzgledny("/3dthings-breloki-z-logo.png") %>">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo 3D things na czarnym tle">
+<meta name="twitter:card" content="summary_large_image">
+<% end -%>
+<% unless puste?(d["strona"]["google_site_verification"]) -%>
+<meta name="google-site-verification" content="<%= h d["strona"]["google_site_verification"] %>">
+<% end -%>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/ikona-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="<%= zasob("czcionki/jost-latin.woff2") %>" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="<%= zasob("czcionki/jost-latin-ext.woff2") %>" crossorigin>
+<style><%= zasob("css") %></style>
+<script>document.documentElement.className="js";</script>
+<% if glowna? -%>
+<script type="application/ld+json">
+<%= jsonld %>
+</script>
+<% end -%>
+</head>
+<body>
+<a class="pomin" href="#tresc">Przejdź do treści</a>
+<% if podglad? -%>
+<p class="podglad-pasek">Wersja podglądowa: przykładowe dane w miejscu braków, strona wyłączona z indeksowania.</p>
+<% end -%>
+<%= render "sekcje/naglowek" %>
+<main id="tresc">
+<%= tresc %>
+</main>
+<%= render "sekcje/stopka" %>
+<% if glowna? -%>
+<div class="pasek-cta" data-pasek-cta>
+  <a class="przycisk" href="#wycena" data-zrodlo="pasek">Zapytaj o wycenę</a>
+  <a class="pasek-cta__tel" href="<%= telefon_href %>" data-zdarzenie="telefon" aria-label="Zadzwoń: <%= h telefon %>">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="7" y="2.500" width="10" height="19" rx="2.500" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17.500" r="1.200" fill="currentColor"/></svg>
+  </a>
+</div>
+<% end -%>
+<script src="<%= zasob("js/skrypt.js") %>" defer></script>
+</body>
+</html>

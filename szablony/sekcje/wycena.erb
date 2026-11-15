@@ -1,0 +1,66 @@
+<section id="wycena" class="sekcja" aria-labelledby="wycena-h">
+  <%= deko "pierscien", "#ff8a3d", "dk-lewa-pierscien" %>
+  <div class="kontener">
+    <h2 id="wycena-h" class="tytul-sekcji"><span class="kropka kropka--fiolet"></span>Napisz, czego potrzebujesz – odpiszę z wyceną</h2>
+    <div class="wycena">
+      <div class="wycena__formularz karta">
+        <form class="formularz" action="<%= h formularz_adres %>" method="post" accept-charset="utf-8" data-formularz data-usluga="<%= h formularz_usluga %>">
+          <div class="pole">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-opis f-email-blad">
+            <p class="pole__opis" id="f-email-opis">Tu wyślę podgląd projektu i wycenę.</p>
+            <p class="pole__blad" id="f-email-blad" hidden></p>
+          </div>
+          <div class="pole">
+<% if d["formularz"]["telefon_wymagany"] -%>
+            <label for="f-telefon">Telefon</label>
+            <input id="f-telefon" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="f-telefon-opis f-telefon-blad">
+<% else -%>
+            <label for="f-telefon">Telefon <span class="pole__opcja">(opcjonalnie)</span></label>
+            <input id="f-telefon" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="f-telefon-opis f-telefon-blad">
+<% end -%>
+            <p class="pole__opis" id="f-telefon-opis">Jeśli wolisz rozmowę, oddzwonię. Żadnego telemarketingu.</p>
+            <p class="pole__blad" id="f-telefon-blad" hidden></p>
+          </div>
+          <div class="pole">
+            <label for="f-opis">Czego potrzebujesz?</label>
+            <textarea id="f-opis" name="message" rows="5" required placeholder="Np. 50 breloków dla siłowni, czarno-żółte, na początek grudnia." aria-describedby="f-opis-opis f-opis-blad"></textarea>
+            <p class="pole__opis" id="f-opis-opis">Napisz w 1–2 zdaniach: co, ile sztuk, w jakich kolorach i na kiedy. Możesz wkleić link do logo albo znajdę je sam.</p>
+            <p class="pole__blad" id="f-opis-blad" hidden></p>
+          </div>
+          <div class="pulapka" aria-hidden="true">
+            <label for="f-www">Nie wypełniaj tego pola</label>
+            <input id="f-www" name="_honeypot" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="zrodlo" value="bezposrednio" data-zrodlo-pole>
+<% if formularz_usluga == "formspark" -%>
+          <input type="hidden" name="_redirect" value="/dziekujemy/">
+          <input type="hidden" name="_append" value="false">
+<% end -%>
+          <p class="formularz__blad" role="alert" data-blad hidden></p>
+          <button class="przycisk przycisk--pelny" type="submit" data-wyslij>Wyślij zapytanie o wycenę</button>
+          <p class="formularz__nota">Wysyłając formularz, prosisz o kontakt e-mailowy lub telefoniczny w sprawie wyceny. <%= puste?(d["formularz"]["czas_odpowiedzi"]) ? "Odpisuję osobiście." : h(d["formularz"]["czas_odpowiedzi"]) %> Zapytanie do niczego nie zobowiązuje.</p>
+          <p class="formularz__nota">Twoje dane wykorzystam tylko do odpowiedzi na to zapytanie. <a href="/polityka-prywatnosci/">Polityka prywatności</a></p>
+          <details class="klauzula">
+            <summary>Informacja o przetwarzaniu danych</summary>
+            <p>Administratorem danych jest <%= h administrator %> (kontakt: <%= h email %>). Dane z formularza przetwarzam, aby odpowiedzieć na zapytanie i przygotować wycenę (art. 6 ust. 1 lit. b RODO, a gdy piszesz w imieniu firmy: art. 6 ust. 1 lit. f RODO). Podanie danych jest dobrowolne, ale potrzebne do udzielenia odpowiedzi. Przechowuję je przez czas korespondencji i <%= h d["rodo"]["okres_przechowywania"] %> od ostatniego kontaktu. Odbiorcami danych są dostawcy usług: <%= h d["rodo"]["odbiorcy"] %>. Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, sprzeciwu oraz skargi do Prezesa UODO. Szczegóły: <a href="/polityka-prywatnosci/">Polityka prywatności</a>.</p>
+          </details>
+        </form>
+        <div class="sukces" role="status" tabindex="-1" data-sukces hidden>
+          <h3>Dziękuję, zapytanie wysłane</h3>
+          <p>Co będzie dalej: przeczytam Twoją wiadomość, w razie potrzeby dopytam o szczegóły i wyślę wycenę oraz podgląd projektu.</p>
+          <p>Pilna sprawa? Zadzwoń: <a href="<%= telefon_href %>" data-zdarzenie="telefon"><%= h telefon %></a></p>
+        </div>
+      </div>
+      <aside class="kontakt" aria-label="Kontakt bezpośredni">
+        <img class="kontakt__znak" src="<%= zasob("img/znak-3dthings.svg") %>" width="88" height="88" alt="" loading="lazy">
+        <div>
+          <p class="kontakt__tel"><a href="<%= telefon_href %>" data-zdarzenie="telefon"><%= h telefon %></a></p>
+          <p><span class="kontakt__etykieta">e-mail</span> <a href="mailto:<%= h email %>" data-zdarzenie="email"><%= h email %></a></p>
+          <p><span class="kontakt__etykieta">Instagram</span> <a href="<%= h d["kontakt"]["instagram_url"] %>" rel="noopener"><%= h d["kontakt"]["instagram_nazwa"] %></a></p>
+          <p><span class="kontakt__etykieta">Pracownia</span> <%= h d["kontakt"]["miejscowosc"] %></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

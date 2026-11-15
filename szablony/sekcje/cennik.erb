@@ -1,0 +1,38 @@
+<section id="cennik" class="sekcja" aria-labelledby="cennik-h">
+  <%= deko "kolo", "#ffd23f", "dk-prawa-kolo" %>
+  <div class="kontener">
+    <h2 id="cennik-h" class="tytul-sekcji"><span class="kropka kropka--fiolet"></span>Cennik breloków z logo</h2>
+    <p class="lead">Cena breloka zależy tylko od liczby sztuk. Im większe zamówienie, tym niższa cena za sztukę.</p>
+    <ul class="progi">
+<% progi.each_with_index do |p, i| -%>
+      <li class="prog<%= " prog--najlepszy" if i == progi.size - 1 %>">
+        <span class="prog__ile"><%= h p["etykieta"] %></span>
+        <span class="prog__cena"><%= p["cena"] %> <small>zł</small></span>
+        <span class="prog__jedn">za sztukę</span>
+      </li>
+<% end -%>
+    </ul>
+    <p class="wiersz-nfc"><span><strong>Tabliczka NFC</strong> z Twoim logo</span><span class="wiersz-nfc__cena">wycena indywidualna</span></p>
+    <p class="nota">Projekt breloka w cenie. Poprawki projektu bez dopłat. Czas realizacji: ok. 7 dni roboczych od akceptacji projektu. <%= h vat_etykieta %></p>
+
+    <div class="kalkulator karta" data-kalkulator data-progi="<%= h progi.map { |p| { "od" => p["od"], "cena" => p["cena"] } }.to_json %>" hidden>
+      <h3 class="karta__tytul">Policz koszt zamówienia</h3>
+      <label class="kalkulator__etykieta" for="kalk-ile">Liczba sztuk</label>
+      <div class="kalkulator__pole">
+        <button type="button" data-krok="-10" aria-label="Zmniejsz liczbę sztuk o 10">−</button>
+        <input id="kalk-ile" type="number" inputmode="numeric" min="<%= progi.first["od"] %>" max="5000" step="1" value="50">
+        <button type="button" data-krok="10" aria-label="Zwiększ liczbę sztuk o 10">+</button>
+      </div>
+      <div class="kalkulator__skroty" role="group" aria-label="Popularne nakłady">
+        <button type="button" data-ile="20">20</button>
+        <button type="button" data-ile="50">50</button>
+        <button type="button" data-ile="100">100</button>
+        <button type="button" data-ile="200">200</button>
+      </div>
+      <p class="kalkulator__wynik" aria-live="polite"><span data-kalk-cena></span> za sztukę, razem <strong data-kalk-suma></strong></p>
+      <p class="kalkulator__podpowiedz" data-kalk-podpowiedz hidden></p>
+      <a class="przycisk" href="#wycena" data-kalk-cta data-zrodlo="kalkulator">Zapytaj o wycenę 50 szt.</a>
+    </div>
+    <p class="bez-js-tylko"><a class="przycisk" href="#wycena" data-zrodlo="cennik">Zapytaj o wycenę</a></p>
+  </div>
+</section>

@@ -1,0 +1,244 @@
+/* Skrypt strony 3D things. Tylko ulepsza: cała treść i formularz działają bez niego. */
+(function () {
+  "use strict";
+  var start = Date.now();
+
+  /* Jedno miejsce na zdarzenia do statystyk. Dziś nic nie robi; po wyborze narzędzia podepnij je tutaj.
+     Nie przekazuj tu danych osobowych. */
+  function zdarzenie(nazwa, dane) {
+    void nazwa; void dane;
+  }
+
+  /* ---------- menu na telefonie ---------- */
+  var menu = document.querySelector("[data-menu]");
+  var nawigacja = document.getElementById("nawigacja");
+  if (menu && nawigacja) {
+    menu.addEventListener("click", function () {
+      var otwarte = nawigacja.classList.toggle("otwarta");
+      menu.setAttribute("aria-expanded", otwarte ? "true" : "false");
+    });
+    nawigacja.addEventListener("click", function (e) {
+      if (e.target.closest("a")) {
+        nawigacja.classList.remove("otwarta");
+        menu.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  /* ---------- źródło zgłoszenia i zdarzenia kliknięć ---------- */
+  var poleZrodla = document.querySelector("[data-zrodlo-pole]");
+  document.addEventListener("click", function (e) {
+    var cta = e.target.closest("a[data-zrodlo]");
+    if (cta) {
+      if (poleZrodla) poleZrodla.value = cta.getAttribute("data-zrodlo");
+      zdarzenie("klik_do_formularza", { miejsce: cta.getAttribute("data-zrodlo") });
+    }
+    var kontakt = e.target.closest("a[data-zdarzenie]");
+    if (kontakt) zdarzenie("klik_kontakt", { rodzaj: kontakt.getAttribute("data-zdarzenie") });
+  });
+
+  /* ---------- pasek z przyciskiem na telefonie ---------- */
+  var pasek = document.querySelector("[data-pasek-cta]");
+  var sekcjaWyceny = document.getElementById("wycena");
+  if (pasek && sekcjaWyceny && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (wpisy) {
+      pasek.classList.toggle("ukryty", wpisy[0].isIntersecting);
+    }, { threshold: 0.05 }).observe(sekcjaWyceny);
+  }
+
+  /* ---------- kalkulator ---------- */
+  var kalk = document.querySelector("[data-kalkulator]");
+  var poleOpisu = document.getElementById("f-opis");
+  if (kalk) {
+    var progi = JSON.parse(kalk.getAttribute("data-progi"));
+    var ile = kalk.querySelector("input");
+    var elCena = kalk.querySelector("[data-kalk-cena]");
+    var elSuma = kalk.querySelector("[data-kalk-suma]");
+    var elPodp = kalk.querySelector("[data-kalk-podpowiedz]");
+    var elCta = kalk.querySelector("[data-kalk-cta]");
+    var minimum = progi[0].od;
+    var uzyty = false;
+
+    var cenaDla = function (n) {
+      var c = progi[0].cena;
+      progi.forEach(function (p) { if (n >= p.od) c = p.cena; });
+      return c;
+    };
+    var zl = function (n) { return n.toLocaleString("pl-PL") + " zł"; };
+
+    var przelicz = function () {
+      var n = parseInt(ile.value, 10);
+      if (isNaN(n) || n < minimum) n = minimum;
+      if (n > 5000) n = 5000;
+      var cena = cenaDla(n);
+      var suma = n * cena;
+      elCena.textContent = zl(cena);
+      elSuma.textContent = zl(suma);
+      var lepszy = null;
+      progi.forEach(function (p) {
+        if (p.od > n && p.od * p.cena < suma && !lepszy) lepszy = p;
+      });
+      if (lepszy) {
+        elPodp.textContent = lepszy.od + " szt. kosztuje " + zl(lepszy.od * lepszy.cena) + ", czyli mniej niż " + n + " szt. (" + zl(suma) + ").";
+        elPodp.hidden = false;
+      } else {
+        elPodp.hidden = true;
+      }
+      elCta.textContent = "Zapytaj o wycenę " + n + " szt.";
+      elCta.setAttribute("data-ile", String(n));
+      return n;
+    };
+    var ustaw = function (n) {
+      ile.value = String(Math.max(minimum, Math.min(5000, n)));
+      przelicz();
+      if (!uzyty) { uzyty = true; zdarzenie("kalkulator"); }
+    };
+
+    kalk.hidden = false;
+    przelicz();
+    ile.addEventListener("input", function () { przelicz(); if (!uzyty) { uzyty = true; zdarzenie("kalkulator"); } });
+    ile.addEventListener("change", function () { ustaw(parseInt(ile.value, 10) || minimum); });
+    kalk.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      if (b.hasAttribute("data-krok")) ustaw((parseInt(ile.value, 10) || minimum) + parseInt(b.getAttribute("data-krok"), 10));
+      if (b.hasAttribute("data-ile")) ustaw(parseInt(b.getAttribute("data-ile"), 10));
+    });
+    elCta.addEventListener("click", function () {
+      if (!poleOpisu) return;
+      var zdanie = "Proszę o wycenę: " + elCta.getAttribute("data-ile") + " szt. breloków z logo.";
+      var obecny = poleOpisu.value.replace(/Proszę o wycenę: \d+ szt\. breloków z logo\.\s*/, "");
+      poleOpisu.value = zdanie + (obecny ? " " + obecny : " ");
+    });
+  }
+
+  /* ---------- formularz ---------- */
+  var form = document.querySelector("[data-formularz]");
+  if (!form) return;
+  var przycisk = form.querySelector("[data-wyslij]");
+  var blad = form.querySelector("[data-blad]");
+  var sukces = document.querySelector("[data-sukces]");
+  var tekstPrzycisku = przycisk.textContent;
+  var wToku = false;
+  var zaczety = false;
+  form.setAttribute("novalidate", "");
+
+  var reguly = {
+    email: function (v) {
+      if (!v) return "Podaj adres e-mail, np. jan@firma.pl.";
+      if (v.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return "Ten adres e-mail wygląda na niepełny. Wpisz go w postaci jan@firma.pl.";
+      return "";
+    },
+    phone: function (v, pole) {
+      if (!v) return pole.required ? "Podaj numer telefonu: 9 cyfr, np. 600 700 800." : "";
+      var cyfry = v.replace(/[\s().-]/g, "").replace(/^00/, "+");
+      if (/^(\+?48)?[1-9]\d{8}$/.test(cyfry) || /^\+\d{8,15}$/.test(cyfry)) return "";
+      return "Podaj numer telefonu: 9 cyfr, np. 600 700 800.";
+    },
+    message: function (v) {
+      return v ? "" : "Napisz w 1–2 zdaniach, czego potrzebujesz, np. ile breloków i na kiedy.";
+    }
+  };
+
+  function sprawdz(pole) {
+    var regula = reguly[pole.name];
+    if (!regula) return true;
+    var komunikat = regula(pole.value.trim(), pole);
+    var el = document.getElementById(pole.id + "-blad");
+    if (komunikat) {
+      pole.setAttribute("aria-invalid", "true");
+      el.textContent = komunikat;
+      el.hidden = false;
+      return false;
+    }
+    pole.removeAttribute("aria-invalid");
+    el.hidden = true;
+    el.textContent = "";
+    return true;
+  }
+
+  var pola = Array.prototype.slice.call(form.querySelectorAll("input[name], textarea[name]")).filter(function (p) { return reguly[p.name]; });
+  pola.forEach(function (p) {
+    p.addEventListener("blur", function () { if (p.value.trim() || p.getAttribute("aria-invalid")) sprawdz(p); });
+    p.addEventListener("input", function () {
+      if (!zaczety) { zaczety = true; zdarzenie("formularz_start"); }
+      if (p.getAttribute("aria-invalid")) sprawdz(p);
+    });
+  });
+
+  function pokazBlad(tekst) {
+    blad.textContent = tekst;
+    blad.hidden = false;
+  }
+  var bladOgolny = "Nie udało się wysłać formularza. Spróbuj ponownie albo zadzwoń: " +
+    (document.querySelector(".kontakt__tel a") ? document.querySelector(".kontakt__tel a").textContent : "") + ".";
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (wToku) return;
+    blad.hidden = true;
+    var pierwszy = null;
+    pola.forEach(function (p) { if (!sprawdz(p) && !pierwszy) pierwszy = p; });
+    if (pierwszy) { pierwszy.focus(); zdarzenie("formularz_blad", { pole: pierwszy.name }); return; }
+
+    var pulapka = form.querySelector('[name="_honeypot"]');
+    if (pulapka && pulapka.value) { pokazSukces(); return; }
+    if (Date.now() - start < 3000) { pokazBlad("Formularz został wysłany zbyt szybko. Odczekaj chwilę i spróbuj ponownie."); return; }
+
+    var dane = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.name === "_honeypot" || el.name === "_redirect" || el.name === "_append") return;
+      dane[el.name] = el.value.trim();
+    });
+
+    wToku = true;
+    przycisk.disabled = true;
+    przycisk.setAttribute("aria-busy", "true");
+    przycisk.textContent = "Wysyłanie…";
+
+    var kontroler = "AbortController" in window ? new AbortController() : null;
+    var limit = setTimeout(function () { if (kontroler) kontroler.abort(); }, 12000);
+
+    fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(dane),
+      signal: kontroler ? kontroler.signal : undefined
+    }).then(function (odp) {
+      if (odp.ok) { pokazSukces(); zdarzenie("formularz_wyslany", { zrodlo: dane.zrodlo, telefon: dane.phone ? "tak" : "nie" }); return null; }
+      if (odp.status === 422) {
+        return odp.json().then(function (j) {
+          var pierwszeZle = null;
+          Object.keys((j && j.errors) || {}).forEach(function (nazwa) {
+            var pole = form.querySelector('[name="' + nazwa + '"]');
+            var el = pole && document.getElementById(pole.id + "-blad");
+            if (!el) return;
+            pole.setAttribute("aria-invalid", "true");
+            el.textContent = j.errors[nazwa];
+            el.hidden = false;
+            if (!pierwszeZle) pierwszeZle = pole;
+          });
+          if (pierwszeZle) pierwszeZle.focus(); else pokazBlad(bladOgolny);
+        });
+      }
+      pokazBlad(bladOgolny);
+      zdarzenie("formularz_blad", { kod: odp.status });
+      return null;
+    }).catch(function () {
+      pokazBlad(bladOgolny);
+      zdarzenie("formularz_blad", { kod: "siec" });
+    }).then(function () {
+      clearTimeout(limit);
+      wToku = false;
+      przycisk.disabled = false;
+      przycisk.removeAttribute("aria-busy");
+      przycisk.textContent = tekstPrzycisku;
+    });
+  });
+
+  function pokazSukces() {
+    form.hidden = true;
+    sukces.hidden = false;
+    sukces.focus();
+  }
+})();

@@ -1,0 +1,50 @@
+<section id="tabliczki-nfc" class="sekcja sekcja--panel" aria-labelledby="nfc-h">
+  <%= deko "pierscien", "#43d1a6", "dk-prawa-pierscien" %>
+  <div class="kontener">
+    <h2 id="nfc-h" class="tytul-sekcji"><span class="kropka kropka--mieta"></span>Tabliczka NFC do opinii Google z logo Twojej firmy</h2>
+    <div class="dwie-kolumny dwie-kolumny--obraz">
+      <div class="proza">
+        <p>Tabliczka NFC stoi na ladzie albo w recepcji i skraca drogę do opinii do kilku sekund. Klient nie musi szukać Twojej firmy w Mapach ani niczego wpisywać. Projektuję ją z Twoim logo i drukuję w 3D w kolorach Twojej marki.</p>
+        <h3>Jak działa tabliczka NFC</h3>
+        <ol class="kroki kroki--ciemne">
+          <li class="krok">
+            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">1</span>
+            <h4>Klient zbliża telefon</h4>
+            <p>do znaczka na tabliczce.</p>
+          </li>
+          <li class="krok">
+            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">2</span>
+            <h4>Dotyka powiadomienia</h4>
+            <p>i otwiera się formularz opinii o Twojej firmie w Google.</p>
+          </li>
+          <li class="krok">
+            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">3</span>
+            <h4>Wystawia opinię w kilka sekund</h4>
+            <p>bez szukania i bez instalowania aplikacji.</p>
+          </li>
+        </ol>
+        <p class="nota">Działa bez aplikacji na iPhone'ach XS i nowszych oraz na telefonach z Androidem z włączonym NFC.<% if oferta("tabliczka_qr") %> Dla pozostałych telefonów jest wersja z kodem QR.<% end %></p>
+        <h3>Czym różni się od gotowej tabliczki z naklejką</h3>
+        <p>W zwykłym stojaku NFC do opinii Google logo jest naklejką albo nadrukiem. Tutaj logo i napisy są wydrukowane w tworzywie, a kolory dobieram do Twojej marki. Tabliczkę możesz zamówić razem z brelokami z tym samym logo.</p>
+        <p>O ocenie zawsze decyduje klient. Zbieranie opinii w ten sposób jest zgodne z zasadami Google, gdy zapraszasz wszystkich klientów i niczego nie oferujesz w zamian.</p>
+        <table class="parametry">
+          <tbody>
+            <tr><th scope="row">Tabliczka</th><td>80 × 130 mm, z Twoim logo i napisem zachęcającym do opinii</td></tr>
+            <tr><th scope="row">Podstawka</th><td>92 × 62 mm, dociążona, z filcem od spodu</td></tr>
+<% if oferta("tabliczka_minimum") -%>
+            <tr><th scope="row">Minimalne zamówienie</th><td><%= h oferta("tabliczka_minimum") %></td></tr>
+<% end -%>
+<% if oferta("tabliczka_czas") -%>
+            <tr><th scope="row">Czas realizacji</th><td><%= h oferta("tabliczka_czas") %></td></tr>
+<% end -%>
+            <tr><th scope="row">Cena</th><td><%= oferta("tabliczka_cena_od") ? h(oferta("tabliczka_cena_od")) + ", " : "" %>wycena indywidualna<%= oferta("tabliczka_bez_abonamentu") ? ", bez abonamentu" : "" %></td></tr>
+          </tbody>
+        </table>
+        <p><a class="przycisk" href="#wycena" data-zrodlo="tabliczki-nfc">Zapytaj o wycenę tabliczki</a></p>
+      </div>
+      <div class="pole-ilustracji pole-ilustracji--brzoskwinia">
+        <img src="<%= zasob("img/tabliczka-nfc-przod.svg") %>" width="480" height="780" loading="lazy" decoding="async" alt="Czarna tabliczka NFC „Zostaw opinię” z logo 3D things, widok z przodu">
+      </div>
+    </div>
+  </div>
+</section>

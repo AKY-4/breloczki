@@ -158,8 +158,10 @@ test "HTML strony głównej poniżej 100 KB (#{html_kb} KB)", html_kb < 100
 js = Dir.glob(File.join(FOLDER, "assets", "js", "*.js"))
 js_kb = js.map { |p| kb.(p) }.sum.round(1)
 test "JavaScript poniżej 15 KB (#{js_kb} KB)", js_kb < 15
-leniwe = html.scan(/<img\b[^>]*loading="lazy"[^>]*>/).map { |i| i[/src="([^"]+)"/, 1] }
-pierwsze = (html.scan(/<img\b[^>]*src="(\/[^"]+)"/).flatten - leniwe).uniq
+# W <picture> przeglądarka pobiera pierwsze źródło (AVIF), a nie zapasowy obraz z <img>.
+html_pierwsze = html.gsub(/<picture>\s*<source\b[^>]*srcset="([^"]+)"[^>]*>\s*<img\b([^>]*?)src="[^"]+"([^>]*)>\s*<\/picture>/m) { %(<img#{$2}src="#{$1}"#{$3}>) }
+leniwe = html_pierwsze.scan(/<img\b[^>]*loading="lazy"[^>]*>/).map { |i| i[/src="([^"]+)"/, 1] }
+pierwsze = (html_pierwsze.scan(/<img\b[^>]*src="(\/[^"]+)"/).flatten - leniwe).uniq
 czcionki = Dir.glob(File.join(FOLDER, "assets", "czcionki", "*.woff2"))
 suma = html_kb + js_kb + czcionki.map { |p| kb.(p) }.sum + pierwsze.map { |p| kb.(File.join(FOLDER, bez_bazy(p))) }.sum
 test "pierwsze wczytanie poniżej 300 KB (#{suma.round(1)} KB bez kompresji)", suma < 300

@@ -430,6 +430,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 .nfc-scena__fale{left:33%;top:35%;width:12%;z-index:2}
 .nfc-scena__tel{z-index:1}
+/* biała tabliczka z kodem QR jest węższa od poprzedniej: nieco większa, a fale przy jej prawej krawędzi, tuż pod telefonem */
+.pole-ilustracji .nfc-scena__tabliczka{left:6%;height:76%}
+.nfc-scena__fale{left:37%;top:27%}
 
 /* ---------- nagranie z druku ---------- */
 .nagranie{display:grid;gap:20px;align-items:center;justify-items:center;margin:0 0 24px}

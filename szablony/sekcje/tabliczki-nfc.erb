@@ -46,7 +46,10 @@
       </div>
       <figure class="nfc-figura pole-ilustracji pole-ilustracji--brzoskwinia">
         <div class="nfc-scena">
-          <img class="nfc-scena__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.svg") %>" width="540" height="740" loading="lazy" decoding="async" alt="Czarna tabliczka NFC „Zostaw opinię” z logo 3D things na fioletowej podstawce">
+          <picture>
+            <source srcset="<%= zasob("img/tabliczka-nfc-na-podstawce.avif") %>" type="image/avif">
+            <img class="nfc-scena__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.png") %>" width="623" height="972" loading="lazy" decoding="async" alt="Biała tabliczka NFC „Zostaw opinię” z miejscem na Twoje logo, kodem QR i znakiem NFC, na czarnej podstawce">
+          </picture>
           <svg class="nfc-scena__fale" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
             <path transform="translate(40 0) scale(-1 1)" d="M8 14a12 12 0 0 1 0 12M16 9a19 19 0 0 1 0 22M24 4a26 26 0 0 1 0 32" fill="none" stroke="#43d1a6" stroke-width="4" stroke-linecap="round"/>
           </svg>

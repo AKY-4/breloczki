@@ -17,7 +17,10 @@
     </div>
     <div class="start__obraz">
       <div class="start__druk">
-      <img class="start__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.svg") %>" width="540" height="740" alt="Czarna tabliczka NFC „Zostaw opinię” z logo 3D things na fioletowej podstawce">
+      <picture>
+        <source srcset="<%= zasob("img/tabliczka-nfc-na-podstawce.avif") %>" type="image/avif">
+        <img class="start__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.png") %>" width="623" height="972" alt="Biała tabliczka NFC „Zostaw opinię” z miejscem na Twoje logo, kodem QR i znakiem NFC, na czarnej podstawce">
+      </picture>
       <img class="start__brelok" src="<%= zasob("img/brelok-3d-z-logo.svg") %>" width="1420" height="1860" alt="Brelok 3D z logo 3D things: czarna zawieszka z fioletowo-białym znakiem i metalowym kółkiem na klucze" fetchpriority="high">
       </div>
     </div>

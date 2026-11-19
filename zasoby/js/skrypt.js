@@ -56,6 +56,8 @@
     var elSuma = kalk.querySelector("[data-kalk-suma]");
     var elPodp = kalk.querySelector("[data-kalk-podpowiedz]");
     var elCta = kalk.querySelector("[data-kalk-cta]");
+    var suwak = kalk.querySelector("[data-kalk-suwak]");
+    var kafleProgow = document.querySelectorAll("[data-prog-od]");
     var minimum = progi[0].od;
     var uzyty = false;
 
@@ -86,6 +88,12 @@
       }
       elCta.textContent = "Zapytaj o wycenę " + n + " szt.";
       elCta.setAttribute("data-ile", String(n));
+      if (suwak) suwak.value = String(Math.min(n, parseInt(suwak.max, 10)));
+      var progOd = progi[0].od;
+      progi.forEach(function (p) { if (n >= p.od) progOd = p.od; });
+      Array.prototype.forEach.call(kafleProgow, function (el) {
+        el.classList.toggle("prog--aktywny", parseInt(el.getAttribute("data-prog-od"), 10) === progOd);
+      });
       return n;
     };
     var ustaw = function (n) {
@@ -98,6 +106,7 @@
     przelicz();
     ile.addEventListener("input", function () { przelicz(); if (!uzyty) { uzyty = true; zdarzenie("kalkulator"); } });
     ile.addEventListener("change", function () { ustaw(parseInt(ile.value, 10) || minimum); });
+    if (suwak) suwak.addEventListener("input", function () { ustaw(parseInt(suwak.value, 10)); });
     kalk.addEventListener("click", function (e) {
       var b = e.target.closest("button");
       if (!b) return;

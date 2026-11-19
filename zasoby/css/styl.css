@@ -355,3 +355,49 @@ ul,ol{margin:0;padding:0;list-style:none}
   @keyframes dr-brelok{0%,92%{opacity:1}96%,100%{opacity:0}}
   @keyframes dr-glowica{0%{transform:translateX(0)}2.5%{transform:translateX(-70px)}7.5%{transform:translateX(70px)}12.5%{transform:translateX(-70px)}17.5%{transform:translateX(70px)}22.5%{transform:translateX(-70px)}27.5%{transform:translateX(70px)}32.5%{transform:translateX(-70px)}37.5%{transform:translateX(70px)}42.5%{transform:translateX(-70px)}47.5%{transform:translateX(70px)}52.5%{transform:translateX(-70px)}57.5%{transform:translateX(70px)}62.5%{transform:translateX(-70px)}67.5%{transform:translateX(70px)}72%,100%{transform:translateX(0)}}
 }
+
+/* ---------- cennik, wersja 2: progi na całą szerokość, kalkulator z suwakiem, lista „w cenie" ---------- */
+.progi{display:grid;grid-template-columns:1fr;gap:12px;max-width:none;margin:24px 0 16px}
+.prog{position:relative;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:18px 20px;border-radius:var(--r-karta);box-shadow:var(--krawedz);transition:background-color .2s ease,color .2s ease}
+.prog__opis,.prog__kwota{display:flex;flex-direction:column}
+.prog__kwota{align-items:flex-end;text-align:right}
+.prog__ile{font-weight:600;font-size:calc(var(--baza)*1.2);color:var(--tekst)}
+.prog__przyklad{font-size:max(14px,calc(var(--baza)*.9));color:var(--tekst2)}
+.prog__cena{font-size:calc(var(--baza)*2.4);color:var(--fiolet)}
+.prog__jedn{color:var(--tekst2)}
+.prog__znaczek{position:absolute;top:-11px;right:16px;font-size:13px;font-weight:600;line-height:1;padding:5px 10px;border-radius:999px;background:var(--mieta-tlo);color:var(--mieta-tekst);box-shadow:0 0 0 2px var(--papier)}
+.prog--aktywny{background:var(--fiolet);box-shadow:0 2px 0 rgba(23,21,28,.18)}
+.prog--aktywny .prog__ile,.prog--aktywny .prog__cena{color:var(--bialy)}
+.prog--aktywny .prog__przyklad,.prog--aktywny .prog__jedn{color:var(--na-fiolecie)}
+.cennik__dol{display:grid;gap:16px;align-items:stretch}
+.kalkulator{max-width:none;margin:0}
+.kalkulator__etykieta{margin-bottom:10px}
+.kalkulator__pole{max-width:none;gap:10px}
+.kalkulator__pole button{flex:0 0 56px;min-height:56px;font-size:calc(var(--baza)*1.4);border-radius:var(--r-maly)}
+.kalkulator__pole input{min-height:56px;font-size:calc(var(--baza)*1.6);border-radius:var(--r-maly);-moz-appearance:textfield;appearance:textfield}
+.kalkulator__pole input::-webkit-outer-spin-button,.kalkulator__pole input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.kalkulator__suwak{display:block;width:100%;height:36px;margin:14px 0 0;accent-color:var(--fiolet);cursor:pointer}
+.kalkulator__skala{display:flex;justify-content:space-between;font-size:14px;color:var(--tekst2)}
+.kalkulator__wynik{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:20px 0 14px;padding:16px 18px;border-radius:var(--r-maly);background:var(--lila);font-size:var(--baza)}
+.kalkulator__podpis{color:var(--tekst2)}
+.kalkulator__wynik .kalkulator__suma{font-size:calc(var(--baza)*2.17);line-height:1.05;color:var(--fiolet)}
+.kalkulator__szt{color:var(--tekst2);margin-left:auto}
+.kalkulator__podpowiedz{margin:0 0 14px}
+.w-cenie{display:flex;flex-direction:column}
+.lista-ptaszki{display:grid;gap:12px;margin:0 0 16px}
+.lista-ptaszki li{position:relative;padding-left:36px;min-height:24px}
+.lista-ptaszki li::before{content:"";position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;background:var(--mieta-tlo)}
+.lista-ptaszki li::after{content:"";position:absolute;left:7px;top:8px;width:10px;height:6px;border-left:2px solid var(--mieta-tekst);border-bottom:2px solid var(--mieta-tekst);transform:rotate(-45deg)}
+.w-cenie .nota{margin-bottom:16px}
+.w-cenie .wiersz-nfc{margin:auto 0 0;max-width:none;align-items:center}
+.wiersz-nfc p{margin:0}
+.wiersz-nfc a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+@media (min-width:700px){
+  .progi{grid-template-columns:repeat(3,1fr);gap:16px}
+  .prog{flex-direction:column;align-items:flex-start;gap:14px;padding:22px 24px 20px}
+  .prog__kwota{flex-direction:row;align-items:baseline;gap:8px;text-align:left}
+  .prog__cena{font-size:calc(var(--baza)*3)}
+}
+@media (min-width:960px){
+  .cennik__dol{grid-template-columns:1.15fr .85fr;gap:20px}
+}

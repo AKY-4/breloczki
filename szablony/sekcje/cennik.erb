@@ -3,35 +3,60 @@
   <div class="kontener">
     <h2 id="cennik-h" class="tytul-sekcji"><span class="kropka kropka--fiolet"></span>Cennik breloków z logo</h2>
     <p class="lead">Cena breloka zależy tylko od liczby sztuk. Im większe zamówienie, tym niższa cena za sztukę.</p>
+
     <ul class="progi">
 <% progi.each_with_index do |p, i| -%>
-      <li class="prog<%= " prog--najlepszy" if i == progi.size - 1 %>">
-        <span class="prog__ile"><%= h p["etykieta"] %></span>
-        <span class="prog__cena"><%= p["cena"] %> <small>zł</small></span>
-        <span class="prog__jedn">za sztukę</span>
+<%   ostatni = i == progi.size - 1 -%>
+      <li class="prog<%= " prog--aktywny" if ostatni %>" data-prog-od="<%= p["od"] %>">
+        <div class="prog__opis">
+          <span class="prog__ile"><%= h p["etykieta"] %></span>
+          <span class="prog__przyklad">np. <%= p["od"] %> szt. to <%= p["od"] * p["cena"] %> zł</span>
+        </div>
+        <div class="prog__kwota">
+          <span class="prog__cena"><%= p["cena"] %> <small>zł</small></span>
+          <span class="prog__jedn">za sztukę</span>
+        </div>
+<% if ostatni -%>
+        <span class="prog__znaczek">najniższa cena</span>
+<% end -%>
       </li>
 <% end -%>
     </ul>
-    <p class="wiersz-nfc"><span><strong>Tabliczka NFC</strong> z Twoim logo</span><span class="wiersz-nfc__cena">wycena indywidualna</span></p>
-    <p class="nota">Projekt breloka w cenie. Poprawki projektu bez dopłat. Czas realizacji: ok. 7 dni roboczych od akceptacji projektu. <%= h vat_etykieta %></p>
 
-    <div class="kalkulator karta" data-kalkulator data-progi="<%= h progi.map { |p| { "od" => p["od"], "cena" => p["cena"] } }.to_json %>" hidden>
-      <h3 class="karta__tytul">Policz koszt zamówienia</h3>
-      <label class="kalkulator__etykieta" for="kalk-ile">Liczba sztuk</label>
-      <div class="kalkulator__pole">
-        <button type="button" data-krok="-10" aria-label="Zmniejsz liczbę sztuk o 10">−</button>
-        <input id="kalk-ile" type="number" inputmode="numeric" min="<%= progi.first["od"] %>" max="5000" step="1" value="50">
-        <button type="button" data-krok="10" aria-label="Zwiększ liczbę sztuk o 10">+</button>
+    <div class="cennik__dol">
+      <div class="kalkulator karta" data-kalkulator data-progi="<%= h progi.map { |p| { "od" => p["od"], "cena" => p["cena"] } }.to_json %>" hidden>
+        <h3 class="karta__tytul">Policz koszt zamówienia</h3>
+        <label class="kalkulator__etykieta" for="kalk-ile">Ile breloków potrzebujesz?</label>
+        <div class="kalkulator__pole">
+          <button type="button" data-krok="-10" aria-label="Zmniejsz liczbę sztuk o 10">−</button>
+          <input id="kalk-ile" type="number" inputmode="numeric" min="<%= progi.first["od"] %>" max="5000" step="1" value="50">
+          <button type="button" data-krok="10" aria-label="Zwiększ liczbę sztuk o 10">+</button>
+        </div>
+        <input class="kalkulator__suwak" type="range" min="<%= progi.first["od"] %>" max="300" step="5" value="50" aria-label="Liczba sztuk, suwak" data-kalk-suwak>
+        <div class="kalkulator__skala" aria-hidden="true"><span><%= progi.first["od"] %></span><span>300 i więcej</span></div>
+        <div class="kalkulator__wynik" aria-live="polite">
+          <span class="kalkulator__podpis">Razem</span>
+          <strong class="kalkulator__suma" data-kalk-suma></strong>
+          <span class="kalkulator__szt"><span data-kalk-cena></span> za sztukę</span>
+        </div>
+        <p class="kalkulator__podpowiedz" data-kalk-podpowiedz hidden></p>
+        <a class="przycisk przycisk--pelny" href="#wycena" data-kalk-cta data-zrodlo="kalkulator">Zapytaj o wycenę 50 szt.</a>
       </div>
-      <div class="kalkulator__skroty" role="group" aria-label="Popularne nakłady">
-        <button type="button" data-ile="20">20</button>
-        <button type="button" data-ile="50">50</button>
-        <button type="button" data-ile="100">100</button>
-        <button type="button" data-ile="200">200</button>
+
+      <div class="w-cenie karta">
+        <h3 class="karta__tytul">Co jest w cenie</h3>
+        <ul class="lista-ptaszki">
+          <li>Projekt breloka z Twojego logo</li>
+          <li>Podgląd przed drukiem i poprawki bez dopłat</li>
+          <li>Kolory dobrane do Twojej marki</li>
+          <li>Realizacja w ok. 7 dni roboczych od akceptacji projektu</li>
+        </ul>
+        <p class="nota"><%= h vat_etykieta %></p>
+        <div class="wiersz-nfc">
+          <p><strong>Tabliczka NFC</strong> z Twoim logo<br><span class="wiersz-nfc__cena">wycena indywidualna</span></p>
+          <a href="#wycena" data-zrodlo="cennik-nfc">Zapytaj o tabliczkę</a>
+        </div>
       </div>
-      <p class="kalkulator__wynik" aria-live="polite"><span data-kalk-cena></span> za sztukę, razem <strong data-kalk-suma></strong></p>
-      <p class="kalkulator__podpowiedz" data-kalk-podpowiedz hidden></p>
-      <a class="przycisk" href="#wycena" data-kalk-cta data-zrodlo="kalkulator">Zapytaj o wycenę 50 szt.</a>
     </div>
     <p class="bez-js-tylko"><a class="przycisk" href="#wycena" data-zrodlo="cennik">Zapytaj o wycenę</a></p>
   </div>

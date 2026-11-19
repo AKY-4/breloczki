@@ -324,3 +324,6 @@ ul,ol{margin:0;padding:0;list-style:none}
   }
 }
 @view-transition{navigation:auto}
+
+/* sekcja startowa bez bloczków: odstęp między leadem a przyciskiem */
+.start .lead{margin-bottom:28px}

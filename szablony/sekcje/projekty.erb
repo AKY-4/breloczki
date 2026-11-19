@@ -1,28 +1,25 @@
 <section id="projekty" class="sekcja" aria-labelledby="projekty-h">
   <%= deko "gwiazdka", "#ff6fa8", "dk-prawa-gwiazdka" %>
   <div class="kontener">
-    <h2 id="projekty-h" class="tytul-sekcji"><span class="kropka kropka--pomarancz"></span>Przykładowe projekty breloków i tabliczek</h2>
-    <p class="lead">Tak wyglądają projekty przygotowane dla lokalnych firm z różnych branż. Każdy ma inny kształt i kolory, bo powstaje z logo konkretnej firmy.</p>
-    <ul class="galeria">
-<% galeria.each do |g| -%>
-      <li class="kafel<%= " kafel--zdjecie" if g["typ"] == "zdjecie" %>">
-        <figure>
-          <div class="kafel__obraz" style="background-color:<%= h g["tlo"] %>">
-            <picture>
-              <source type="image/avif" srcset="<%= zasob("img/projekty/#{g["plik"]}.avif") %>">
-              <img src="<%= zasob("img/projekty/#{g["plik"]}.jpg") %>" width="<%= g["w"] %>" height="<%= g["h"] %>" alt="<%= h g["alt"] %>" loading="lazy" decoding="async">
-            </picture>
-          </div>
-          <figcaption>
-            <span class="kafel__podpis"><%= h g["podpis"] %></span>
-            <span class="kafel__etykieta"><%= g["typ"] == "zdjecie" ? "realizacja" : "wizualizacja projektu" %></span>
-<% if podglad? && !g["zgoda"] -%>
-            <span class="kafel__czeka">czeka na zgodę firmy: <%= h g["firma"] %></span>
+    <h2 id="projekty-h" class="tytul-sekcji"><span class="kropka kropka--pomarancz"></span>Przykładowe projekty breloków</h2>
+<% if ksztalty_logo? -%>
+    <p class="lead">Trzy najczęstsze kształty: medalion, podłużny i prostokąt, a pod nimi breloki wycięte po obrysie logo. Przeciągnij brelok, żeby go obrócić.</p>
+<% else -%>
+    <p class="lead">Trzy najczęstsze kształty: medalion, podłużny i prostokąt. Brelok może też mieć obrys Twojego logo. Przeciągnij brelok, żeby go obrócić.</p>
 <% end -%>
-          </figcaption>
-        </figure>
-      </li>
+    <figure class="breloki-3d pole-ilustracji">
+      <iframe class="breloki-3d__ramka<%= " breloki-3d__ramka--pelna" if ksztalty_logo? %>" src="<%= zasob("breloki-3d/breloki-3d-twoja-firma.html") %>?tlo=przezroczyste" title="<%= ksztalty_logo? ? "Obracane breloki 3D: medalion, podłużny i prostokąt z napisem Twoja firma oraz pięć breloków w kształcie logo" : "Obracane breloki 3D z napisem Twoja firma: czarny medalion, biały podłużny i miętowy prostokąt" %>" loading="lazy" width="1100" height="<%= ksztalty_logo? ? 740 : 360 %>" data-breloki-ramka></iframe>
+      <figcaption>Wizualizacja projektów. Na Twoim breloku będzie logo w kolorach Twojej marki.</figcaption>
+    </figure>
+<% if podglad? && ksztalty_logo? && !(d["breloki_3d"] || {})["zgoda_ksztalt_logo"] -%>
+    <p class="czeka-na-dane"><strong>Widoczne tylko w podglądzie.</strong> Pięć breloków w polu „Kształt logo” powstało na wzór logo prawdziwych firm i czeka na ich zgodę. Do wersji do publikacji trafią dopiero po ustawieniu w dane.yml: breloki_3d.zgoda_ksztalt_logo: true. Do tego czasu opublikowana strona pokazuje tylko trzy breloki „Twoja firma”.</p>
 <% end -%>
-    </ul>
+    <div class="breloki-3d__panel">
+      <div class="breloki-3d__pole" data-breloki-pole hidden>
+        <label for="nazwa-firmy">Wpisz nazwę swojej firmy</label>
+        <input id="nazwa-firmy" type="text" maxlength="24" autocomplete="organization" placeholder="Np. Kawiarnia Ziarno" data-breloki-nazwa>
+      </div>
+      <a class="przycisk" href="#wycena" data-zrodlo="projekty" data-breloki-cta>Zapytaj o wycenę breloków</a>
+    </div>
   </div>
 </section>

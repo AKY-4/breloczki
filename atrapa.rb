@@ -19,7 +19,7 @@ abort "Brak folderu #{FOLDER}. Najpierw uruchom: ruby buduj.rb" unless File.dire
 TYPY = WEBrick::HTTPUtils::DefaultMimeTypes.merge(
   "avif" => "image/avif", "woff2" => "font/woff2", "svg" => "image/svg+xml", "ico" => "image/x-icon",
   "xml" => "application/xml", "txt" => "text/plain; charset=utf-8", "html" => "text/html; charset=utf-8",
-  "js" => "text/javascript; charset=utf-8", "mp4" => "video/mp4"
+  "js" => "text/javascript; charset=utf-8", "mp4" => "video/mp4", "htm" => "text/html; charset=utf-8"
 )
 $scenariusz = "ok"
 

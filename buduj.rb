@@ -194,6 +194,10 @@ class Kontekst
     ze_zgoda.size >= 4 ? ze_zgoda : []
   end
 
+  def ksztalty_logo?
+    POKAZ_KSZTALTY_LOGO
+  end
+
   def nagranie
     n = d["nagranie"]
     n && !puste?(n["plik"]) ? n : nil
@@ -281,6 +285,22 @@ def typografia(html)
   end.join
 end
 
+# ---------- obracane breloki: zestaw w kształcie logo wymaga zgody firm ----------
+POKAZ_KSZTALTY_LOGO = TRYB == :podglad || (DANE["breloki_3d"] || {})["zgoda_ksztalt_logo"] == true
+
+def bez_ksztaltow_logo(t)
+  od = t.index('<div class="lamanie" data-zestaw="ksztalt">')
+  skrypt = od && t.index("<script>", od)
+  return t unless od && skrypt
+  koniec = t.rindex("</div>", skrypt) # zamknięcie sceny zostaje
+  wynik = t[0...od] + t[koniec..-1]
+  wynik = wynik.gsub(%r{<symbol id="k-[^"]+".*?</symbol>}m, "") # rysunki kształtów logo
+  if wynik =~ /<[^>]*data-zestaw="ksztalt"/ || wynik =~ /<symbol id="k-/ || wynik =~ /href="#k-/
+    raise "Nie udało się usunąć zestawu w kształcie logo z pliku breloków"
+  end
+  wynik
+end
+
 # ---------- zasoby ze skrótem treści w nazwie ----------
 FileUtils.rm_rf(WYJSCIE)
 FileUtils.mkdir_p(File.join(WYJSCIE, "assets"))
@@ -299,6 +319,16 @@ Dir.glob(File.join(KATALOG, "zasoby", "**", "*")).sort.each do |plik|
   if wzgl.end_with?("OFL.txt")
     FileUtils.mkdir_p(File.join(WYJSCIE, "assets", "czcionki"))
     FileUtils.cp(plik, File.join(WYJSCIE, "assets", "czcionki", "OFL.txt"))
+    next
+  end
+  if wzgl.start_with?("breloki-3d/") && wzgl.end_with?(".html")
+    # Obracane breloki: wzory w kształcie logo firm trafiają do pliku tylko w podglądzie albo po zgodzie firm.
+    tresc = File.read(plik, encoding: "UTF-8")
+    tresc = bez_ksztaltow_logo(tresc) unless POKAZ_KSZTALTY_LOGO
+    cel = wzgl.sub(/\.html\z/, ".#{Digest::MD5.hexdigest(tresc)[0, 8]}.html")
+    FileUtils.mkdir_p(File.dirname(File.join(WYJSCIE, "assets", cel)))
+    File.write(File.join(WYJSCIE, "assets", cel), tresc)
+    zasoby[wzgl] = "/assets/" + cel
     next
   end
   skrot = Digest::MD5.file(plik).hexdigest[0, 8]

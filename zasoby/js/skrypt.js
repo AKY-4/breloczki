@@ -162,6 +162,35 @@
     }, { threshold: [0, 0.5] }).observe(film);
   }
 
+  /* ---------- obracane breloki: nazwa firmy na breloku ---------- */
+  var ramka = document.querySelector("[data-breloki-ramka]");
+  var poleNazwy = document.querySelector("[data-breloki-nazwa]");
+  if (ramka && poleNazwy) {
+    document.querySelector("[data-breloki-pole]").hidden = false;
+    var dopasuj = function () {
+      try {
+        var scena = ramka.contentDocument.getElementById("scena");
+        var w = scena ? scena.offsetHeight : 0;
+        if (w > 100) ramka.style.height = (w + 8) + "px";
+      } catch (e) {}
+    };
+    ramka.addEventListener("load", dopasuj);
+    window.addEventListener("resize", dopasuj);
+    var czekaj = null;
+    poleNazwy.addEventListener("input", function () {
+      clearTimeout(czekaj);
+      czekaj = setTimeout(function () {
+        var nazwa = poleNazwy.value.trim() || "Twoja firma";
+        try { ramka.contentWindow.postMessage({ napis: nazwa }, location.origin); } catch (e) {}
+      }, 250);
+    });
+    document.querySelector("[data-breloki-cta]").addEventListener("click", function () {
+      var nazwa = poleNazwy.value.trim();
+      var opis = document.getElementById("f-opis");
+      if (nazwa && opis && !opis.value.trim()) opis.value = "Proszę o wycenę breloków dla firmy " + nazwa + ". ";
+    });
+  }
+
   /* ---------- formularz ---------- */
   var form = document.querySelector("[data-formularz]");
   if (!form) return;

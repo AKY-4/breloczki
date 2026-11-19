@@ -18,6 +18,7 @@ Na tym Macu nie ma Node.js, Pythona, PHP ani Gita. Niczego nie instaluj bez pyta
 - `szablony/uklad.erb`: wspólny układ; `szablony/sekcje/*.erb`: sekcje strony głównej, nagłówek i stopka.
 - `zasoby/css/styl.css` trafia w całości do `<head>`; odwołania do plików zapisuj jako `zasob(sciezka)`.
 - `buduj.rb` dodaje skrót treści do nazw plików, twarde spacje w tekście i JSON-LD.
+- `zasoby/breloki-3d/breloki-3d-twoja-firma.html`: samodzielny plik z obracanymi brelokami, osadzony w ramce w sekcji `projekty` (zastąpił galerię kafli; stare obrazy galerii leżą w `archiwum/galeria-projekty/` i nie trafiają na stronę). Zestaw „Kształt logo” jest oparty na logo prawdziwych firm: `buduj.rb` zostawia go w podglądzie, a z wersji do publikacji wycina (razem z rysunkami kształtów), dopóki w `dane.yml` nie ma `breloki_3d.zgoda_ksztalt_logo: true`. Nazwę firmy strona przekazuje do ramki przez `postMessage`, nie przez adres.
 - Materiały marki są w `../3D things - paczka/` i są tylko do odczytu. Wzorzec wyglądu to `07 Pliki zrodlowe (generatory)/ulotka_3dthings.html`.
 
 ## Zasady treści

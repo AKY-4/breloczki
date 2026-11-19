@@ -161,3 +161,9 @@ nagranie:
   etykieta: "Nagranie: drukarka 3D drukuje serię żółto-czarnych breloków na jednej płycie"
   data: "2026-11-19"
   czas_s: 5
+
+# OBRACANE BRELOKI w sekcji „Przykładowe projekty”.
+# Pięć breloków w kształcie logo (byk, krowa, diament, Magic Stick, pizza) powstało na wzór logo prawdziwych firm.
+# Do wersji do publikacji trafiają dopiero po zgodzie tych firm.
+breloki_3d:
+  zgoda_ksztalt_logo: false   # true = firmy się zgodziły, zestaw „Kształt logo” pojawia się także po publikacji

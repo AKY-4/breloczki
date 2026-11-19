@@ -32,4 +32,4 @@ Na tym Macu nie ma Node.js, Pythona, PHP ani Gita. Niczego nie instaluj bez pyta
 
 ## Wygląd
 
-Kolory, krój Jost i kształty są zdefiniowane na początku `zasoby/css/styl.css`. Bez gradientów, rozmytych cieni, kursywy w nagłówkach i ciemnego motywu. Pomarańcz, żółty, mięta i róż służą tylko do dekoracji, nie do tekstu.
+Kolory, krój Jost i kształty są zdefiniowane na początku `zasoby/css/styl.css`. Bez gradientów, rozmytych cieni, kursywy w nagłówkach i ciemnego motywu. Animacje (na życzenie właściciela): ilustracje w sekcji startowej odsłaniają się płynnie od dołu z fioletową linią „dyszy”, karty przy przewijaniu płynnie się pojawiają (przezroczystość i lekkie przesunięcie), plus krótkie przejścia na przyciskach, menu i pytaniach. Nie używaj `steps()` ani skokowych animacji: właściciel odebrał je jako zacinanie się strony. Wszystko wyłącza się przy `prefers-reduced-motion`. Stan oczekiwania elementu to `opacity:0`, nie `clip-path`, bo przycięty element nie zgłasza się w IntersectionObserver. Formularz nie jest animowany. Pomarańcz, żółty, mięta i róż służą tylko do dekoracji, nie do tekstu.

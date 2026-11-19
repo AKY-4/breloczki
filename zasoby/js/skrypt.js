@@ -112,6 +112,34 @@
     });
   }
 
+  /* ---------- efekt druku 3D przy przewijaniu ----------
+     Elementy poniżej pierwszego ekranu są ukrywane i „drukują się" warstwami, gdy wejdą w pole widzenia.
+     Formularz nie bierze w tym udziału, żeby nigdy nie został ukryty. */
+  var bezRuchu = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!bezRuchu && "IntersectionObserver" in window) {
+    var doDruku = document.querySelectorAll(".karta:not(.wycena__formularz), .kafel, .prog, .wiersz-nfc, .krok, .pytanie, .o-mnie, .kontakt, .pole-ilustracji, .czeka-na-dane");
+    var obserwator = new IntersectionObserver(function (wpisy) {
+      wpisy.forEach(function (w) {
+        var el = w.target;
+        if (w.isIntersecting) {
+          if (el.classList.contains("druk-czeka")) {
+            el.classList.remove("druk-czeka");
+            el.classList.add("druk-start");
+            el.addEventListener("animationend", function () { el.classList.remove("druk-start"); }, { once: true });
+          }
+          obserwator.unobserve(el);
+        } else if (!el.classList.contains("druk-czeka")) {
+          el.classList.add("druk-czeka");
+        }
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.1 });
+    Array.prototype.forEach.call(doDruku, function (el) {
+      var nr = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.setProperty("--i", String(Math.min(nr, 5)));
+      obserwator.observe(el);
+    });
+  }
+
   /* ---------- formularz ---------- */
   var form = document.querySelector("[data-formularz]");
   if (!form) return;

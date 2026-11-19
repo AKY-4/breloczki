@@ -15,6 +15,8 @@ KATALOG = File.expand_path(__dir__)
 TRYB = ARGV[0] == "produkcja" ? :produkcja : :podglad
 # Folder wynikowy można zmienić zmienną WYJSCIE (używa tego Netlify, patrz netlify.toml).
 WYJSCIE = File.join(KATALOG, ENV["WYJSCIE"].to_s =~ /\A[\w-]+\z/ ? ENV["WYJSCIE"] : (TRYB == :produkcja ? "publikacja" : "podglad"))
+# Gdy strona stoi w podfolderze (np. GitHub Pages: https://uzytkownik.github.io/breloczki), jego nazwę podaje zmienna SCIEZKA_BAZOWA.
+BAZA = ENV["SCIEZKA_BAZOWA"].to_s =~ %r{\A(/[\w.-]+)+\z} ? ENV["SCIEZKA_BAZOWA"] : ""
 ZNACZNIK_URL = "https://domena-do-uzupelnienia.example"
 ZNACZNIK = "do uzupełnienia"
 
@@ -31,7 +33,7 @@ end
 # ---------- kontrola danych wymaganych do publikacji ----------
 def braki(d)
   b = []
-  b << "strona.url: pełny adres strony z https, bez ukośnika na końcu" unless d["strona"]["url"].to_s =~ %r{\Ahttps://[^/\s]+\z}
+  b << "strona.url: pełny adres strony z https, bez ukośnika na końcu" unless d["strona"]["url"].to_s =~ %r{\Ahttps://[^/\s]+(/[\w.-]+)*\z}
   b << "formularz.adres: adres wysyłki formularza" unless d["formularz"]["adres"].to_s =~ %r{\A(https://|/)\S+\z}
   b << "formularz.usluga: formspark albo wlasny" unless %w[formspark wlasny].include?(d["formularz"]["usluga"])
   s = d["sprzedawca"]
@@ -92,6 +94,16 @@ class Kontekst
     puste?(d["strona"]["url"]) ? ZNACZNIK_URL : d["strona"]["url"]
   end
 
+  # ścieżka od korzenia strony, z uwzględnieniem podfolderu
+  def sc(sciezka)
+    BAZA + sciezka
+  end
+
+  # adres domeny bez podfolderu, do sklejania z adresami zasobów
+  def pochodzenie
+    BAZA.empty? ? adres_strony : adres_strony.sub(/#{Regexp.escape(BAZA)}\z/, "")
+  end
+
   def bezwzgledny(sciezka)
     adres_strony + sciezka
   end
@@ -114,7 +126,7 @@ class Kontekst
 
   # odsyłacz do sekcji strony głównej, działa także z podstron
   def kotwica(id)
-    glowna? ? "##{id}" : "/##{id}"
+    glowna? ? "##{id}" : "#{BAZA}/##{id}"
   end
 
   def telefon
@@ -260,8 +272,8 @@ class Kontekst
     ]
     if nagranie
       graf << { "@type" => "VideoObject", "@id" => "#{url}/#nagranie", "name" => nagranie["tytul"], "description" => nagranie["opis"],
-                "thumbnailUrl" => [adres_strony + zasob("wideo/#{nagranie['plakat']}")],
-                "contentUrl" => adres_strony + zasob("wideo/#{nagranie['plik']}"),
+                "thumbnailUrl" => [pochodzenie + zasob("wideo/#{nagranie['plakat']}")],
+                "contentUrl" => pochodzenie + zasob("wideo/#{nagranie['plik']}"),
                 "uploadDate" => "#{nagranie['data']}T12:00:00+01:00", "duration" => "PT#{nagranie['czas_s']}S" }
     end
     JSON.pretty_generate("@context" => "https://schema.org", "@graph" => graf).gsub("</", "<\\/")
@@ -313,7 +325,7 @@ Dir.glob(File.join(KATALOG, "zasoby", "**", "*")).sort.each do |plik|
   next if wzgl.start_with?("css/")
   if W_KATALOGU_GLOWNYM.key?(wzgl)
     FileUtils.cp(plik, File.join(WYJSCIE, W_KATALOGU_GLOWNYM[wzgl]))
-    zasoby[wzgl] = "/" + W_KATALOGU_GLOWNYM[wzgl]
+    zasoby[wzgl] = BAZA + "/" + W_KATALOGU_GLOWNYM[wzgl]
     next
   end
   if wzgl.end_with?("OFL.txt")
@@ -328,7 +340,7 @@ Dir.glob(File.join(KATALOG, "zasoby", "**", "*")).sort.each do |plik|
     cel = wzgl.sub(/\.html\z/, ".#{Digest::MD5.hexdigest(tresc)[0, 8]}.html")
     FileUtils.mkdir_p(File.dirname(File.join(WYJSCIE, "assets", cel)))
     File.write(File.join(WYJSCIE, "assets", cel), tresc)
-    zasoby[wzgl] = "/assets/" + cel
+    zasoby[wzgl] = BAZA + "/assets/" + cel
     next
   end
   skrot = Digest::MD5.file(plik).hexdigest[0, 8]
@@ -336,7 +348,7 @@ Dir.glob(File.join(KATALOG, "zasoby", "**", "*")).sort.each do |plik|
   cel = wzgl.sub(/#{Regexp.escape(roz)}\z/, ".#{skrot}#{roz}")
   FileUtils.mkdir_p(File.dirname(File.join(WYJSCIE, "assets", cel)))
   FileUtils.cp(plik, File.join(WYJSCIE, "assets", cel))
-  zasoby[wzgl] = "/assets/" + cel
+  zasoby[wzgl] = BAZA + "/assets/" + cel
 end
 
 css = wczytaj("zasoby/css/styl.css")

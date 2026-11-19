@@ -34,16 +34,16 @@
           </div>
           <input type="hidden" name="zrodlo" value="bezposrednio" data-zrodlo-pole>
 <% if formularz_usluga == "formspark" -%>
-          <input type="hidden" name="_redirect" value="/dziekujemy/">
+          <input type="hidden" name="_redirect" value="<%= sc "/dziekujemy/" %>">
           <input type="hidden" name="_append" value="false">
 <% end -%>
           <p class="formularz__blad" role="alert" data-blad hidden></p>
           <button class="przycisk przycisk--pelny" type="submit" data-wyslij>Wyślij zapytanie o wycenę</button>
           <p class="formularz__nota">Wysyłając formularz, prosisz o kontakt e-mailowy lub telefoniczny w sprawie wyceny. <%= puste?(d["formularz"]["czas_odpowiedzi"]) ? "Odpisuję osobiście." : h(d["formularz"]["czas_odpowiedzi"]) %> Zapytanie do niczego nie zobowiązuje.</p>
-          <p class="formularz__nota">Twoje dane wykorzystam tylko do odpowiedzi na to zapytanie. <a href="/polityka-prywatnosci/">Polityka prywatności</a></p>
+          <p class="formularz__nota">Twoje dane wykorzystam tylko do odpowiedzi na to zapytanie. <a href="<%= sc "/polityka-prywatnosci/" %>">Polityka prywatności</a></p>
           <details class="klauzula">
             <summary>Informacja o przetwarzaniu danych</summary>
-            <p>Administratorem danych jest <%= h administrator %> (kontakt: <%= h email %>). Dane z formularza przetwarzam, aby odpowiedzieć na zapytanie i przygotować wycenę (art. 6 ust. 1 lit. b RODO, a gdy piszesz w imieniu firmy: art. 6 ust. 1 lit. f RODO). Podanie danych jest dobrowolne, ale potrzebne do udzielenia odpowiedzi. Przechowuję je przez czas korespondencji i <%= h d["rodo"]["okres_przechowywania"] %> od ostatniego kontaktu. Odbiorcami danych są dostawcy usług: <%= h d["rodo"]["odbiorcy"] %>. Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, sprzeciwu oraz skargi do Prezesa UODO. Szczegóły: <a href="/polityka-prywatnosci/">Polityka prywatności</a>.</p>
+            <p>Administratorem danych jest <%= h administrator %> (kontakt: <%= h email %>). Dane z formularza przetwarzam, aby odpowiedzieć na zapytanie i przygotować wycenę (art. 6 ust. 1 lit. b RODO, a gdy piszesz w imieniu firmy: art. 6 ust. 1 lit. f RODO). Podanie danych jest dobrowolne, ale potrzebne do udzielenia odpowiedzi. Przechowuję je przez czas korespondencji i <%= h d["rodo"]["okres_przechowywania"] %> od ostatniego kontaktu. Odbiorcami danych są dostawcy usług: <%= h d["rodo"]["odbiorcy"] %>. Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, sprzeciwu oraz skargi do Prezesa UODO. Szczegóły: <a href="<%= sc "/polityka-prywatnosci/" %>">Polityka prywatności</a>.</p>
           </details>
         </form>
         <div class="sukces" role="status" tabindex="-1" data-sukces hidden>

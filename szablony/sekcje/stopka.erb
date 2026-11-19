@@ -7,7 +7,7 @@
     <div class="stopka__dane">
       <p><span class="stopka__etykieta">Sprzedawca</span> <%= h sprzedawca_stopka %></p>
       <p><span class="stopka__etykieta">Kontakt</span> <a href="<%= telefon_href %>" data-zdarzenie="telefon"><%= h telefon %></a> · <a href="mailto:<%= h email %>" data-zdarzenie="email"><%= h email %></a> · <a href="<%= h d["kontakt"]["instagram_url"] %>" rel="noopener">Instagram <%= h d["kontakt"]["instagram_nazwa"] %></a></p>
-      <p><a href="/polityka-prywatnosci/">Polityka prywatności</a></p>
+      <p><a href="<%= sc "/polityka-prywatnosci/" %>">Polityka prywatności</a></p>
     </div>
     <div class="stopka__noty">
       <p>Informacje i ceny na stronie nie stanowią oferty w rozumieniu art. 66 § 1 Kodeksu cywilnego, lecz zaproszenie do zawarcia umowy (art. 71 KC). Wiążącą wycenę przesyłam w odpowiedzi na zapytanie.</p>

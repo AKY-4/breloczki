@@ -8,6 +8,11 @@ Encoding.default_external = Encoding::UTF_8
 NAZWA = ARGV[0] || "podglad"
 FOLDER = File.expand_path(NAZWA, __dir__)
 PRODUKCJA = NAZWA == "publikacja"
+# Podfolder strony (np. /breloczki na GitHub Pages); musi być taki sam jak przy budowaniu.
+BAZA = ENV["SCIEZKA_BAZOWA"].to_s =~ %r{\A(/[\w.-]+)+\z} ? ENV["SCIEZKA_BAZOWA"] : ""
+def bez_bazy(p)
+  BAZA.empty? ? p : p.sub(/\A#{Regexp.escape(BAZA)}/, "")
+end
 abort "Brak folderu #{FOLDER}. Najpierw uruchom: ruby buduj.rb#{PRODUKCJA ? ' produkcja' : ''}" unless File.directory?(FOLDER)
 
 $bledy = []
@@ -57,7 +62,7 @@ test "og:url = adres kanoniczny", og == kanon.first
 mapa = czytaj("sitemap.xml")
 test "mapa strony zawiera adres kanoniczny", mapa.include?("<loc>#{kanon.first}</loc>")
 test "mapa strony nie zawiera /dziekujemy/ ani 404", !mapa.include?("dziekujemy") && !mapa.include?("404")
-test "obraz og:image ma adres bezwzględny i istnieje", (o = html[/<meta property="og:image" content="([^"]*)"/, 1]) && o.start_with?("https://") && File.file?(File.join(FOLDER, o.sub(%r{\Ahttps://[^/]+}, "")))
+test "obraz og:image ma adres bezwzględny i istnieje", (o = html[/<meta property="og:image" content="([^"]*)"/, 1]) && o.start_with?("https://") && File.file?(File.join(FOLDER, bez_bazy(o.sub(%r{\Ahttps://[^/]+}, ""))))
 
 puts "Dane strukturalne"
 bloki = html.scan(%r{<script type="application/ld\+json">(.*?)</script>}m).flatten
@@ -92,7 +97,7 @@ puts "Obrazy, kotwice, zasoby"
 obrazy = html.scan(/<img\b[^>]*>/)
 test "każdy obraz ma alt, width i height (#{obrazy.size})", obrazy.all? { |i| i =~ /\balt="/ && i =~ /\bwidth="\d+"/ && i =~ /\bheight="\d+"/ }
 lokalne = html.scan(/(?:src|srcset|href)="(\/[^"#?]*)"/).flatten.uniq.reject { |p| p.end_with?("/") }
-brak = lokalne.reject { |p| File.file?(File.join(FOLDER, p)) }
+brak = lokalne.reject { |p| File.file?(File.join(FOLDER, bez_bazy(p))) }
 test "wszystkie lokalne pliki istnieją (#{lokalne.size})", brak.empty?, brak.join(", ")
 ids = html.scan(/\bid="([^"]+)"/).flatten
 test "identyfikatory są unikalne", ids.uniq.size == ids.size, ids.select { |i| ids.count(i) > 1 }.uniq.join(", ")
@@ -115,7 +120,7 @@ test "formularz: method post i adres wysyłki", form =~ /method="post"/ && form 
 test "pola email, phone, message z etykietami", %w[f-email f-telefon f-opis].all? { |i| form.include?(%(for="#{i}")) && form.include?(%(id="#{i}")) }
 test "autocomplete email i tel", form.include?('autocomplete="email"') && form.include?('autocomplete="tel"')
 test "pole pułapka", form.include?('name="_honeypot"')
-test "link do polityki prywatności przy formularzu", form.include?('href="/polityka-prywatnosci/"')
+test "link do polityki prywatności przy formularzu", form.include?(%(href="#{BAZA}/polityka-prywatnosci/"))
 test "brak pól wyboru ze zgodami", form !~ /type="checkbox"/
 
 puts "Podstrony i pliki dla robotów"
@@ -156,7 +161,7 @@ test "JavaScript poniżej 15 KB (#{js_kb} KB)", js_kb < 15
 leniwe = html.scan(/<img\b[^>]*loading="lazy"[^>]*>/).map { |i| i[/src="([^"]+)"/, 1] }
 pierwsze = (html.scan(/<img\b[^>]*src="(\/[^"]+)"/).flatten - leniwe).uniq
 czcionki = Dir.glob(File.join(FOLDER, "assets", "czcionki", "*.woff2"))
-suma = html_kb + js_kb + czcionki.map { |p| kb.(p) }.sum + pierwsze.map { |p| kb.(File.join(FOLDER, p)) }.sum
+suma = html_kb + js_kb + czcionki.map { |p| kb.(p) }.sum + pierwsze.map { |p| kb.(File.join(FOLDER, bez_bazy(p))) }.sum
 test "pierwsze wczytanie poniżej 300 KB (#{suma.round(1)} KB bez kompresji)", suma < 300
 
 puts

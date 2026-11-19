@@ -84,6 +84,18 @@ Gdy hosting będzie wybrany, obsługę formularza można napisać samemu (PHP z 
 
 Plik `atrapa.rb` jest działającym przykładem tego kontraktu.
 
+## Strona na GitHub Pages
+
+Plik `.github/workflows/pages.yml` sprawia, że GitHub sam generuje i wystawia stronę po każdej wysyłce na gałąź `main`. Adres: `https://aky-4.github.io/breloczki/`.
+
+Jednorazowo trzeba to włączyć w repozytorium: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Przebieg każdej publikacji widać w zakładce **Actions**.
+
+- Dopóki w `dane.yml` brakuje danych wymaganych, pod tym adresem jest wersja podglądowa (żółty pasek, wyłączona z indeksowania w Google).
+- GitHub Pages dla prywatnego repozytorium wymaga płatnego planu GitHuba. Na darmowym planie repozytorium musiałoby być publiczne, a wtedy każdy widzi jego pliki i historię.
+- Strona stoi tam w podfolderze `/breloczki`. Generator dostaje jego nazwę w zmiennej `SCIEZKA_BAZOWA` i dopisuje ją do wszystkich adresów. Lokalnie: `SCIEZKA_BAZOWA=/breloczki ruby buduj.rb`, a testy tak samo: `SCIEZKA_BAZOWA=/breloczki ruby sprawdz.rb`.
+- Po podpięciu własnej domeny (Settings → Pages → Custom domain) podfolder znika i nic nie trzeba zmieniać w plikach poza `strona.url` w `dane.yml`.
+- GitHub Pages nie obsługuje formularzy. Formularz zacznie działać po wpisaniu adresu Formspark w `dane.yml` (rozdział o formularzu wyżej).
+
 ## Przed publikacją
 
 - [ ] Uzupełnić cztery wymagane dane w `dane.yml`.

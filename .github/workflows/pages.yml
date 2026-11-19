@@ -1,0 +1,46 @@
+# Publikacja strony na GitHub Pages. Uruchamia się sama po każdej wysyłce na gałąź main.
+# Najpierw próbuje wersji do publikacji. Jeśli w dane.yml brakuje wymaganych danych,
+# buduje wersję podglądową (z żółtym paskiem i wyłączoną z indeksowania w Google).
+# Wymaga jednorazowego włączenia: Settings → Pages → Source: GitHub Actions.
+name: Strona na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  budowa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Generowanie strony
+        env:
+          WYJSCIE: _site
+          # Podfolder, w którym GitHub wystawia stronę (np. /breloczki); pusty przy własnej domenie.
+          SCIEZKA_BAZOWA: ${{ steps.pages.outputs.base_path }}
+        run: ruby buduj.rb produkcja || ruby buduj.rb
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publikacja:
+    needs: budowa
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.wdrozenie.outputs.page_url }}
+    steps:
+      - id: wdrozenie
+        uses: actions/deploy-pages@v4

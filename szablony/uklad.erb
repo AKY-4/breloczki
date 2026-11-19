@@ -27,9 +27,9 @@
 <% unless puste?(d["strona"]["google_site_verification"]) -%>
 <meta name="google-site-verification" content="<%= h d["strona"]["google_site_verification"] %>">
 <% end -%>
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="icon" type="image/png" sizes="192x192" href="/ikona-192.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="<%= sc "/favicon.ico" %>" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="<%= sc "/ikona-192.png" %>">
+<link rel="apple-touch-icon" href="<%= sc "/apple-touch-icon.png" %>">
 <link rel="preload" as="font" type="font/woff2" href="<%= zasob("czcionki/jost-latin.woff2") %>" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="<%= zasob("czcionki/jost-latin-ext.woff2") %>" crossorigin>
 <style><%= zasob("css") %></style>

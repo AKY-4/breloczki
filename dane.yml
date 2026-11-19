@@ -151,3 +151,13 @@ strony:
 uklad:
   pokaz_blok_brelokow: true   # blok „Breloki 3D z logo firmy na zamówienie" z tabelą parametrów, teraz na końcu strony.
                               # Zmień na false, żeby go usunąć ze strony.
+
+# NAGRANIE Z DRUKU w sekcji „Jak powstają breloki”. Puste pole plik = nagranie się nie pojawia.
+nagranie:
+  plik: "druk-3d-brelokow.mp4"       # plik w zasoby/wideo/
+  plakat: "druk-3d-brelokow.jpg"     # kadr pokazywany, zanim nagranie ruszy
+  tytul: "Tak wygląda druk naprawdę"
+  opis: "Na jednej płycie drukarki powstaje kilkanaście breloków naraz. Głowica nakłada kolejne warstwy tworzywa, aż każdy brelok osiągnie pełną grubość."
+  etykieta: "Nagranie: drukarka 3D drukuje serię żółto-czarnych breloków na jednej płycie"
+  data: "2026-11-19"
+  czas_s: 5

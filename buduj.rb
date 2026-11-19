@@ -194,6 +194,11 @@ class Kontekst
     ze_zgoda.size >= 4 ? ze_zgoda : []
   end
 
+  def nagranie
+    n = d["nagranie"]
+    n && !puste?(n["plik"]) ? n : nil
+  end
+
   def oferta(klucz)
     v = d["oferta"][klucz]
     puste?(v) || v == false ? nil : v
@@ -249,6 +254,12 @@ class Kontekst
         "mainEntity" => faq_opublikowane.map { |f|
           { "@type" => "Question", "name" => f["pytanie"], "acceptedAnswer" => { "@type" => "Answer", "text" => f["odpowiedz"] } } } }
     ]
+    if nagranie
+      graf << { "@type" => "VideoObject", "@id" => "#{url}/#nagranie", "name" => nagranie["tytul"], "description" => nagranie["opis"],
+                "thumbnailUrl" => [adres_strony + zasob("wideo/#{nagranie['plakat']}")],
+                "contentUrl" => adres_strony + zasob("wideo/#{nagranie['plik']}"),
+                "uploadDate" => "#{nagranie['data']}T12:00:00+01:00", "duration" => "PT#{nagranie['czas_s']}S" }
+    end
     JSON.pretty_generate("@context" => "https://schema.org", "@graph" => graf).gsub("</", "<\\/")
   end
 end

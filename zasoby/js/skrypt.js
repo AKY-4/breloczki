@@ -149,6 +149,19 @@
     });
   }
 
+  /* ---------- nagranie z druku: gra tylko wtedy, gdy je widać ---------- */
+  var film = document.querySelector("[data-nagranie]");
+  if (film && !bezRuchu && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (wpisy) {
+      if (wpisy[wpisy.length - 1].intersectionRatio >= 0.5) {
+        var proba = film.play();
+        if (proba && proba.catch) proba.catch(function () {});
+      } else {
+        film.pause();
+      }
+    }, { threshold: [0, 0.5] }).observe(film);
+  }
+
   /* ---------- formularz ---------- */
   var form = document.querySelector("[data-formularz]");
   if (!form) return;

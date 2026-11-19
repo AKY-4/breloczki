@@ -19,7 +19,7 @@ abort "Brak folderu #{FOLDER}. Najpierw uruchom: ruby buduj.rb" unless File.dire
 TYPY = WEBrick::HTTPUtils::DefaultMimeTypes.merge(
   "avif" => "image/avif", "woff2" => "font/woff2", "svg" => "image/svg+xml", "ico" => "image/x-icon",
   "xml" => "application/xml", "txt" => "text/plain; charset=utf-8", "html" => "text/html; charset=utf-8",
-  "js" => "text/javascript; charset=utf-8"
+  "js" => "text/javascript; charset=utf-8", "mp4" => "video/mp4"
 )
 $scenariusz = "ok"
 
@@ -36,7 +36,17 @@ class Pliki < WEBrick::HTTPServlet::AbstractServlet
     end
     res["Content-Type"] = TYPY[File.extname(sciezka).delete(".")] || "application/octet-stream"
     res["Cache-Control"] = "no-cache"
-    res.body = File.binread(sciezka)
+    res["Accept-Ranges"] = "bytes"
+    dane = File.binread(sciezka)
+    # Safari odtwarza wideo tylko wtedy, gdy serwer obsługuje żądania fragmentów pliku.
+    if res.status == 200 && req["Range"].to_s =~ /\Abytes=(\d*)-(\d*)\z/
+      od = $1.empty? ? dane.bytesize - $2.to_i : $1.to_i
+      kon = $1.empty? || $2.empty? ? dane.bytesize - 1 : [$2.to_i, dane.bytesize - 1].min
+      res.status = 206
+      res["Content-Range"] = "bytes #{od}-#{kon}/#{dane.bytesize}"
+      dane = dane.byteslice(od, kon - od + 1)
+    end
+    res.body = dane
   end
   alias do_HEAD do_GET
 end

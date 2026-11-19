@@ -430,3 +430,27 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 .nfc-scena__fale{left:33%;top:35%;width:12%;z-index:2}
 .nfc-scena__tel{z-index:1}
+
+/* ---------- nagranie z druku ---------- */
+.nagranie{display:grid;gap:20px;align-items:center;justify-items:center;margin:0 0 24px}
+.nagranie__film{display:block;width:100%;max-width:260px;height:auto;aspect-ratio:464/832;border-radius:var(--r-maly);background:var(--tekst)}
+.nagranie__tekst{max-width:34em}
+.nagranie__tekst>:last-child{margin-bottom:0}
+@media (min-width:700px){
+  .nagranie{grid-template-columns:auto 1fr;gap:32px;justify-items:start}
+}
+
+/* ---------- pytania z nagraniem obok ---------- */
+.pytania-uklad{display:grid;gap:20px;margin-top:24px;align-items:start}
+.pytania-uklad .pytania{margin-top:0}
+.pytania-uklad .nagranie{grid-template-columns:1fr;justify-items:start;gap:16px;margin:0;padding:20px}
+.pytania-uklad .nagranie__film{max-width:260px}
+.pytania-uklad .nagranie__tekst h3{font-size:calc(var(--baza)*1.2)}
+.pytania-uklad .nagranie__tekst p{color:var(--tekst2);margin:0}
+@media (min-width:700px) and (max-width:959px){
+  .pytania-uklad .nagranie{grid-template-columns:auto 1fr;align-items:center;gap:24px}
+}
+@media (min-width:960px){
+  .pytania-uklad--z-nagraniem{grid-template-columns:minmax(0,1fr) 300px;gap:24px}
+  .pytania-uklad--z-nagraniem .pytania{max-width:none}
+}

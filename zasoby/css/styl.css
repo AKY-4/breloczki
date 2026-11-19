@@ -327,3 +327,31 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* sekcja startowa bez bloczków: odstęp między leadem a przyciskiem */
 .start .lead{margin-bottom:28px}
+
+/* ---------- sekcja „Jak powstają breloki": kroki i animacja drukarki 3D ---------- */
+.powstawanie{display:grid;gap:28px;margin:24px 0;align-items:start}
+.drukarka{margin:0;flex-direction:column;gap:12px;padding:24px 20px 18px}
+.drukarka svg{width:100%;max-width:440px;height:auto}
+.drukarka figcaption{font-size:14px;color:var(--tekst2);text-align:center}
+.kroki--pion{margin:0;gap:22px}
+.kroki--pion .krok h3{font-size:calc(var(--baza)*1.2)}
+.dr-oslona{transform-box:fill-box;transform-origin:top;transform:scaleY(0)}
+.dr-suwnica{transform:translateY(-146px)}
+@media (min-width:700px){
+  .kroki--pion{grid-template-columns:1fr}
+  .kroki--pion .krok{padding-left:52px;padding-top:0}
+  .kroki--pion .krok__nr{top:-2px}
+}
+@media (min-width:960px){
+  .powstawanie{grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+}
+@media (prefers-reduced-motion:no-preference){
+  .dr-oslona{animation:dr-oslona 10s linear infinite}
+  .dr-suwnica{animation:dr-suwnica 10s linear infinite}
+  .dr-glowica{animation:dr-glowica 10s ease-in-out infinite}
+  .dr-brelok{animation:dr-brelok 10s linear infinite}
+  @keyframes dr-oslona{0%{transform:scaleY(1)}70%,100%{transform:scaleY(0)}}
+  @keyframes dr-suwnica{0%{transform:translateY(0)}70%{transform:translateY(-124px)}76%,95%{transform:translateY(-146px)}100%{transform:translateY(0)}}
+  @keyframes dr-brelok{0%,92%{opacity:1}96%,100%{opacity:0}}
+  @keyframes dr-glowica{0%{transform:translateX(0)}2.5%{transform:translateX(-70px)}7.5%{transform:translateX(70px)}12.5%{transform:translateX(-70px)}17.5%{transform:translateX(70px)}22.5%{transform:translateX(-70px)}27.5%{transform:translateX(70px)}32.5%{transform:translateX(-70px)}37.5%{transform:translateX(70px)}42.5%{transform:translateX(-70px)}47.5%{transform:translateX(70px)}52.5%{transform:translateX(-70px)}57.5%{transform:translateX(70px)}62.5%{transform:translateX(-70px)}67.5%{transform:translateX(70px)}72%,100%{transform:translateX(0)}}
+}

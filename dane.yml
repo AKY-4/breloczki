@@ -146,3 +146,8 @@ strony:
       tytul: "Dziękuję za zapytanie | 3D things", opis: "Zapytanie zostało wysłane." }
   - { szablon: "404", sciezka: "/404.html", w_mapie: false, indeksowana: false,
       tytul: "Nie ma takiej strony | 3D things", opis: "Strona, której szukasz, nie istnieje." }
+
+# UKŁAD STRONY
+uklad:
+  pokaz_blok_brelokow: true   # blok „Breloki 3D z logo firmy na zamówienie" z tabelą parametrów, teraz na końcu strony.
+                              # Zmień na false, żeby go usunąć ze strony.

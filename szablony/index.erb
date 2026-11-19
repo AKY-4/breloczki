@@ -1,5 +1,4 @@
 <%= render "sekcje/start" %>
-<%= render "sekcje/breloki" %>
 <%= render "sekcje/jak-powstaja" %>
 <% unless galeria.empty? -%>
 <%= render "sekcje/projekty" %>
@@ -10,3 +9,7 @@
 <%= render "sekcje/o-mnie" %>
 <%= render "sekcje/wycena" %>
 <%= render "sekcje/pytania" %>
+<% if d["uklad"]["pokaz_blok_brelokow"] -%>
+<%# Blok do ewentualnego usunięcia: wyłącza się go w dane.yml (uklad.pokaz_blok_brelokow: false). -%>
+<%= render "sekcje/breloki" %>
+<% end -%>

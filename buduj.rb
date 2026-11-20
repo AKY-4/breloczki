@@ -153,6 +153,16 @@ class Kontekst
     progi.map { |p| p["cena"] }.min
   end
 
+  # cena jednej tabliczki NFC w zł (liczba) albo nil, gdy nie jest ustalona
+  def cena_tabliczki
+    v = d["ceny"]["tabliczka"]
+    v.is_a?(Numeric) && v > 0 ? v : nil
+  end
+  
+  def cena_tabliczki_tekst
+    cena_tabliczki ? "#{cena_tabliczki} zł za sztukę" : "wycena indywidualna"
+  end
+
   def vat_etykieta
     case d["ceny"]["vat"]
     when "netto" then "Ceny netto, do ceny doliczany jest VAT."
@@ -188,11 +198,11 @@ class Kontekst
   end
 
   def wartosci_faq
-    { c1: progi[0]["cena"], c2: progi[1]["cena"], c3: progi[2]["cena"] }
+    { c1: progi[0]["cena"], c2: progi[1]["cena"], c3: progi[2]["cena"], ct: cena_tabliczki }
   end
 
   def faq_opublikowane
-    d["faq"].select { |f| f["opublikowane"] && !puste?(f["odpowiedz"]) }
+    d["faq"].select { |f| f["opublikowane"] && !puste?(f["odpowiedz"]) && !(f["odpowiedz"].include?("%{ct}") && !cena_tabliczki) }
             .map { |f| f.merge("odpowiedz" => format(f["odpowiedz"], wartosci_faq)) }
   end
 
@@ -265,7 +275,8 @@ class Kontekst
         "hasOfferCatalog" => { "@type" => "OfferCatalog", "name" => "Cennik breloków z logo", "itemListElement" => oferty } },
       { "@type" => "Service", "@id" => "#{url}/#tabliczki-nfc", "name" => "Tabliczka NFC do opinii Google z logo firmy",
         "serviceType" => "Projektowanie i druk 3D tabliczek NFC z logo firmy",
-        "provider" => { "@id" => "#{url}/#organizacja" }, "areaServed" => { "@type" => "Country", "name" => "Polska" } },
+        "provider" => { "@id" => "#{url}/#organizacja" }, "areaServed" => { "@type" => "Country", "name" => "Polska" } }
+          .merge(cena_tabliczki ? { "offers" => { "@type" => "Offer", "name" => "Tabliczka NFC z logo firmy", "price" => cena_tabliczki, "priceCurrency" => d["ceny"]["waluta"] } } : {}),
       { "@type" => "FAQPage", "@id" => "#{url}/#pytania",
         "mainEntity" => faq_opublikowane.map { |f|
           { "@type" => "Question", "name" => f["pytanie"], "acceptedAnswer" => { "@type" => "Answer", "text" => f["odpowiedz"] } } } }

@@ -2,78 +2,87 @@
   <%= deko "pierscien", "#43d1a6", "dk-prawa-pierscien" %>
   <div class="kontener">
     <h2 id="nfc-h" class="tytul-sekcji"><span class="kropka kropka--mieta"></span>Tabliczka NFC do opinii Google z logo Twojej firmy</h2>
-    <div class="dwie-kolumny dwie-kolumny--obraz">
-      <div class="proza">
-        <p>Tabliczka NFC stoi na ladzie albo w recepcji i skraca drogę do opinii do kilku sekund. Klient nie musi szukać Twojej firmy w Mapach ani niczego wpisywać. Projektuję ją z Twoim logo i drukuję w 3D w kolorach Twojej marki.</p>
-        <h3>Jak działa tabliczka NFC</h3>
-        <ol class="kroki kroki--ciemne">
-          <li class="krok">
-            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">1</span>
-            <h4>Klient zbliża telefon</h4>
-            <p>do znaczka na tabliczce.</p>
-          </li>
-          <li class="krok">
-            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">2</span>
-            <h4>Dotyka powiadomienia</h4>
-            <p>i otwiera się formularz opinii o Twojej firmie w Google.</p>
-          </li>
-          <li class="krok">
-            <span class="krok__nr krok__nr--ciemny" aria-hidden="true">3</span>
-            <h4>Wystawia opinię w kilka sekund</h4>
-            <p>bez szukania i bez instalowania aplikacji.</p>
-          </li>
-        </ol>
-<% if oferta("tabliczka_qr") -%>
-        <p class="nota">Dla telefonów bez NFC jest wersja z kodem QR.</p>
-<% end -%>
-        <h3>Czym różni się od gotowej tabliczki z naklejką</h3>
-        <p>W zwykłym stojaku NFC do opinii Google logo jest naklejką albo nadrukiem. Tutaj logo i napisy są wydrukowane w tworzywie, a kolory dobieram do Twojej marki. Tabliczkę możesz zamówić razem z brelokami z tym samym logo.</p>
-        <p>O ocenie zawsze decyduje klient. Zbieranie opinii w ten sposób jest zgodne z zasadami Google, gdy zapraszasz wszystkich klientów i niczego nie oferujesz w zamian.</p>
-        <table class="parametry">
-          <tbody>
-            <tr><th scope="row">Tabliczka</th><td>80 × 130 mm, z Twoim logo i napisem zachęcającym do opinii</td></tr>
-            <tr><th scope="row">Podstawka</th><td>92 × 62 mm, dociążona, z filcem od spodu</td></tr>
-<% if oferta("tabliczka_minimum") -%>
-            <tr><th scope="row">Minimalne zamówienie</th><td><%= h oferta("tabliczka_minimum") %></td></tr>
-<% end -%>
-<% if oferta("tabliczka_czas") -%>
-            <tr><th scope="row">Czas realizacji</th><td><%= h oferta("tabliczka_czas") %></td></tr>
-<% end -%>
-            <tr><th scope="row">Cena</th><td><%= oferta("tabliczka_cena_od") ? h(oferta("tabliczka_cena_od")) + ", " : "" %>wycena indywidualna<%= oferta("tabliczka_bez_abonamentu") ? ", bez abonamentu" : "" %></td></tr>
-          </tbody>
-        </table>
-        <p><a class="przycisk" href="#wycena" data-zrodlo="tabliczki-nfc">Zapytaj o wycenę tabliczki</a></p>
+    <figure class="nfc-figura nfc-figura--srodek pole-ilustracji pole-ilustracji--brzoskwinia">
+      <div class="nfc-scena">
+        <picture>
+          <source srcset="<%= zasob("img/tabliczka-nfc-na-podstawce.avif") %>" type="image/avif">
+          <img class="nfc-scena__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.png") %>" width="623" height="972" loading="lazy" decoding="async" alt="Biała tabliczka NFC „Zostaw opinię” z miejscem na Twoje logo, kodem QR i znakiem NFC, na czarnej podstawce">
+        </picture>
+        <svg class="nfc-scena__fale" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <path transform="translate(40 0) scale(-1 1)" d="M8 14a12 12 0 0 1 0 12M16 9a19 19 0 0 1 0 22M24 4a26 26 0 0 1 0 32" fill="none" stroke="#43d1a6" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <svg class="nfc-scena__tel" viewBox="0 0 140 270" role="img" aria-label="Telefon przyłożony do tabliczki pokazuje ekran „Opinie” z pięcioma gwiazdkami">
+          <rect x="2" y="2" width="136" height="266" rx="24" fill="#17151c"/>
+          <rect x="10" y="12" width="120" height="246" rx="16" fill="#ffffff"/>
+          <rect x="52" y="18" width="36" height="8" rx="4" fill="#17151c"/>
+          <text class="tel-tytul" x="70" y="94" text-anchor="middle" font-family="Jost, Arial, sans-serif" font-weight="600" font-size="24" fill="#17151c">Opinie</text>
+          <g fill="#ffd23f">
+            <g transform="translate(16 112)"><path class="tel-gw tel-gw--1" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
+            <g transform="translate(38 112)"><path class="tel-gw tel-gw--2" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
+            <g transform="translate(60 112)"><path class="tel-gw tel-gw--3" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
+            <g transform="translate(82 112)"><path class="tel-gw tel-gw--4" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
+            <g transform="translate(104 112)"><path class="tel-gw tel-gw--5" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
+          </g>
+          <g class="tel-reszta">
+            <rect x="26" y="156" width="88" height="8" rx="4" fill="#efe7fb"/>
+            <rect x="36" y="172" width="68" height="8" rx="4" fill="#efe7fb"/>
+            <rect x="30" y="204" width="80" height="26" rx="10" fill="#7a45c2"/>
+          </g>
+        </svg>
       </div>
-      <figure class="nfc-figura pole-ilustracji pole-ilustracji--brzoskwinia">
-        <div class="nfc-scena">
-          <picture>
-            <source srcset="<%= zasob("img/tabliczka-nfc-na-podstawce.avif") %>" type="image/avif">
-            <img class="nfc-scena__tabliczka" src="<%= zasob("img/tabliczka-nfc-na-podstawce.png") %>" width="623" height="972" loading="lazy" decoding="async" alt="Biała tabliczka NFC „Zostaw opinię” z miejscem na Twoje logo, kodem QR i znakiem NFC, na czarnej podstawce">
-          </picture>
-          <svg class="nfc-scena__fale" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-            <path transform="translate(40 0) scale(-1 1)" d="M8 14a12 12 0 0 1 0 12M16 9a19 19 0 0 1 0 22M24 4a26 26 0 0 1 0 32" fill="none" stroke="#43d1a6" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-          <svg class="nfc-scena__tel" viewBox="0 0 140 270" role="img" aria-label="Telefon przyłożony do tabliczki pokazuje ekran „Opinie” z pięcioma gwiazdkami">
-            <rect x="2" y="2" width="136" height="266" rx="24" fill="#17151c"/>
-            <rect x="10" y="12" width="120" height="246" rx="16" fill="#ffffff"/>
-            <rect x="52" y="18" width="36" height="8" rx="4" fill="#17151c"/>
-            <text class="tel-tytul" x="70" y="94" text-anchor="middle" font-family="Jost, Arial, sans-serif" font-weight="600" font-size="24" fill="#17151c">Opinie</text>
-            <g fill="#ffd23f">
-              <g transform="translate(16 112)"><path class="tel-gw tel-gw--1" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
-              <g transform="translate(38 112)"><path class="tel-gw tel-gw--2" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
-              <g transform="translate(60 112)"><path class="tel-gw tel-gw--3" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
-              <g transform="translate(82 112)"><path class="tel-gw tel-gw--4" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
-              <g transform="translate(104 112)"><path class="tel-gw tel-gw--5" d="M10 0l2.900 6.300 6.900.800-5.100 4.700 1.400 6.800L10 15.200 3.900 18.600l1.400-6.800L.200 7.100l6.900-.800z"/></g>
-            </g>
-            <g class="tel-reszta">
-              <rect x="26" y="156" width="88" height="8" rx="4" fill="#efe7fb"/>
-              <rect x="36" y="172" width="68" height="8" rx="4" fill="#efe7fb"/>
-              <rect x="30" y="204" width="80" height="26" rx="10" fill="#7a45c2"/>
-            </g>
-          </svg>
-        </div>
-        <figcaption>Animacja poglądowa: po zbliżeniu telefonu do tabliczki otwiera się formularz opinii.</figcaption>
-      </figure>
+      <figcaption>Animacja poglądowa: po zbliżeniu telefonu do tabliczki otwiera się formularz opinii.</figcaption>
+    </figure>
+    <div class="proza nfc-tresc">
+      <h3>Jak działa tabliczka NFC</h3>
+      <ol class="kroki kroki--ciemne kroki--anim">
+        <li class="krok">
+          <span class="krok__anim" aria-hidden="true"><svg viewBox="0 0 76 76" focusable="false">
+            <rect x="9" y="52" width="32" height="9" rx="3" fill="#17151c"/>
+            <rect x="14" y="15" width="22" height="39" rx="4" fill="#fff" stroke="#17151c" stroke-width="2.5"/>
+            <path transform="translate(20 20)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#7a45c2"/>
+            <rect x="19" y="34" width="12" height="2" rx="1" fill="#17151c"/><rect x="19" y="39" width="12" height="9" rx="1.5" fill="#d9c9f5"/>
+            <g class="ka1-tel"><rect x="46" y="12" width="21" height="38" rx="5" fill="#17151c"/><rect x="49" y="16" width="15" height="30" rx="2.5" fill="#fff"/></g>
+            <g class="ka1-fale" fill="none" stroke="#43d1a6" stroke-width="2.5" stroke-linecap="round"><path d="M39.500 26q3.500 4.500 0 9"/><path d="M43 22.500q6 8 0 16"/></g>
+          </svg></span>
+          <span class="krok__nr krok__nr--ciemny" aria-hidden="true">1</span>
+          <h4>Klient zbliża telefon</h4>
+          <p>do znaczka na tabliczce.</p>
+        </li>
+        <li class="krok">
+          <span class="krok__anim" aria-hidden="true"><svg viewBox="0 0 76 76" focusable="false">
+            <rect x="21" y="7" width="34" height="62" rx="8" fill="#17151c"/>
+            <rect x="24.500" y="11" width="27" height="54" rx="4.500" fill="#fff"/>
+            <g class="ka2-form"><rect x="28.500" y="27" width="13" height="2.400" rx="1.200" fill="#17151c"/><path transform="translate(28.5 34) scale(.36)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/><path transform="translate(32.4 34) scale(.36)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/><path transform="translate(36.3 34) scale(.36)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/><path transform="translate(40.2 34) scale(.36)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/><path transform="translate(44.1 34) scale(.36)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/><rect x="28.500" y="42" width="19" height="2" rx="1" fill="#d9c9f5"/><rect x="28.500" y="46" width="14" height="2" rx="1" fill="#d9c9f5"/><rect x="28.500" y="53" width="19" height="6" rx="3" fill="#7a45c2"/></g>
+            <g class="ka2-baner"><rect x="27" y="14" width="22" height="11" rx="3.500" fill="#7a45c2"/><rect x="30" y="17.300" width="9" height="1.800" rx=".900" fill="#fff"/><rect x="30" y="20.500" width="14" height="1.800" rx=".900" fill="#fff" opacity=".7"/></g>
+            <circle class="ka2-dotyk" cx="38" cy="19.500" r="7" fill="#ff8a3d" fill-opacity=".35" stroke="#ff8a3d" stroke-width="2.500"/>
+          </svg></span>
+          <span class="krok__nr krok__nr--ciemny" aria-hidden="true">2</span>
+          <h4>Dotyka powiadomienia</h4>
+          <p>i otwiera się formularz opinii o Twojej firmie w Google.</p>
+        </li>
+        <li class="krok">
+          <span class="krok__anim" aria-hidden="true"><svg viewBox="0 0 76 76" focusable="false">
+            <rect x="6" y="16" width="64" height="44" rx="9" fill="#fff" stroke="#17151c" stroke-width="2.500"/>
+            <path transform="translate(11 26)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#d9c9f5"/><path transform="translate(22 26)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#d9c9f5"/><path transform="translate(33 26)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#d9c9f5"/><path transform="translate(44 26)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#d9c9f5"/><path transform="translate(55 26)" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#d9c9f5"/>
+            <g transform="translate(11 26)"><path class="ka3-gw ka3-gw--1" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/></g><g transform="translate(22 26)"><path class="ka3-gw ka3-gw--2" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/></g><g transform="translate(33 26)"><path class="ka3-gw ka3-gw--3" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/></g><g transform="translate(44 26)"><path class="ka3-gw ka3-gw--4" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/></g><g transform="translate(55 26)"><path class="ka3-gw ka3-gw--5" d="M5 0l1.45 3.15 3.45.4-2.55 2.35.7 3.4L5 7.6 1.95 9.3l.7-3.4L.1 3.55l3.45-.4z" fill="#ffd23f"/></g>
+            <rect x="14" y="44" width="34" height="2.400" rx="1.200" fill="#d9c9f5"/><rect x="14" y="49" width="24" height="2.400" rx="1.200" fill="#d9c9f5"/>
+            <g class="ka3-ok"><circle cx="61" cy="56" r="10" fill="#43d1a6"/><path d="M56 56.200l3.600 3.600 6.400-7.200" fill="none" stroke="#17151c" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/></g>
+          </svg></span>
+          <span class="krok__nr krok__nr--ciemny" aria-hidden="true">3</span>
+          <h4>Wystawia opinię w kilka sekund</h4>
+          <p>bez szukania i bez instalowania aplikacji.</p>
+        </li>
+      </ol>
+      <p>Tabliczka NFC stoi na ladzie albo w recepcji i skraca drogę do opinii do kilku sekund. Klient nie musi szukać Twojej firmy w Mapach ani niczego wpisywać. Projektuję ją z Twoim logo i drukuję w 3D w kolorach Twojej marki.</p>
+<% if oferta("tabliczka_qr") -%>
+      <p class="nota">Dla telefonów bez NFC jest wersja z kodem QR.</p>
+<% end -%>
+      <p class="nfc-zamow">
+        <a class="przycisk" href="#wycena" data-zrodlo="tabliczki-nfc">Zamów tabliczkę</a>
+<% if cena_tabliczki -%>
+        <span class="nfc-zamow__cena"><strong><%= cena_tabliczki %> zł</strong> za sztukę</span>
+<% end -%>
+      </p>
     </div>
   </div>
 </section>

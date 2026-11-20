@@ -41,6 +41,7 @@ ceny:
     - { od: 20, do: 49, cena: 9, etykieta: "20–49 szt." }
     - { od: 50, do: 99, cena: 8, etykieta: "50–99 szt." }
     - { od: 100, do: null, cena: 6, etykieta: "od 100 szt." }
+  tabliczka: 45                # cena jednej tabliczki NFC w zł; puste = „wycena indywidualna”
 
 formularz:
   usluga: "formspark"          # formspark | wlasny
@@ -59,7 +60,6 @@ oferta:                        # dane do potwierdzenia; puste = zależna treść
   material: ""                 # np. "PLA" (według plików druku: PLA)
   kolko_w_zestawie: ""         # np. "Każdy brelok ma metalowe kółko do kluczy."
   tabliczka_minimum: ""        # np. "od 1 sztuki"
-  tabliczka_cena_od: ""        # np. "od 99 zł"
   tabliczka_czas: ""           # np. "ok. 7 dni roboczych od akceptacji projektu"
   tabliczka_qr: false          # true = w ofercie jest wersja z kodem QR
   tabliczka_bez_abonamentu: false   # true = potwierdzone, że nie ma abonamentu
@@ -89,6 +89,9 @@ faq:
   - pytanie: "Jak działa tabliczka NFC do opinii Google?"
     odpowiedz: "Klient zbliża telefon do tabliczki, dotyka powiadomienia i trafia prosto do formularza opinii o Twojej firmie w Google. Nie musi szukać firmy w Mapach ani niczego instalować."
     opublikowane: true
+  - pytanie: "Ile kosztuje tabliczka NFC do opinii Google?"
+    odpowiedz: "Tabliczka NFC z Twoim logo kosztuje %{ct} zł za sztukę."
+    opublikowane: true
   - pytanie: "Czy tabliczka działa na iPhonie i Androidzie bez aplikacji?"
     odpowiedz: "Tak. Tabliczka działa bez aplikacji na iPhone'ach XS i nowszych oraz na telefonach z Androidem z włączonym NFC."
     opublikowane: true
@@ -114,7 +117,7 @@ faq:
   - { pytanie: "Czy realizujesz duże nakłady?", odpowiedz: "", opublikowane: false, czeka_na: "maksymalny nakład" }
   - { pytanie: "Co, jeśli telefon klienta nie ma NFC?", odpowiedz: "", opublikowane: false, czeka_na: "wersja z kodem QR w ofercie" }
   - { pytanie: "Czy link w tabliczce można później zmienić?", odpowiedz: "", opublikowane: false, czeka_na: "zmiana linku NFC" }
-  - { pytanie: "Ile kosztuje tabliczka NFC i ile trwa realizacja?", odpowiedz: "", opublikowane: false, czeka_na: "cena i czas tabliczki" }
+  - { pytanie: "Ile trwa realizacja tabliczki NFC?", odpowiedz: "", opublikowane: false, czeka_na: "czas realizacji tabliczki" }
 
 # GALERIA. Pozycja trafia do wersji do publikacji dopiero po ustawieniu zgoda: true
 # (firma zgodziła się na pokazanie projektu z jej logo). Poniżej 4 pozycji ze zgodą sekcja się nie pojawia.

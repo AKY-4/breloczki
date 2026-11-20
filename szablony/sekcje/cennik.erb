@@ -2,7 +2,6 @@
   <%= deko "kolo", "#ffd23f", "dk-prawa-kolo" %>
   <div class="kontener">
     <h2 id="cennik-h" class="tytul-sekcji"><span class="kropka kropka--fiolet"></span>Cennik breloków z logo</h2>
-    <p class="lead">Cena breloka zależy tylko od liczby sztuk. Im większe zamówienie, tym niższa cena za sztukę.</p>
 
     <ul class="progi">
 <% progi.each_with_index do |p, i| -%>
@@ -52,10 +51,6 @@
           <li>Realizacja w ok. 7 dni roboczych od akceptacji projektu</li>
         </ul>
         <p class="nota"><%= h vat_etykieta %></p>
-        <div class="wiersz-nfc">
-          <p><strong>Tabliczka NFC</strong> z Twoim logo<br><span class="wiersz-nfc__cena">wycena indywidualna</span></p>
-          <a href="#wycena" data-zrodlo="cennik-nfc">Zapytaj o tabliczkę</a>
-        </div>
       </div>
     </div>
     <p class="bez-js-tylko"><a class="przycisk" href="#wycena" data-zrodlo="cennik">Zapytaj o wycenę</a></p>
